@@ -61,8 +61,8 @@ Legend: ✅ done (verified) · 🟡 partial · ⏳ pending · ❗ decision neede
 
 - **PHPStan baseline**: 1 000+ pre-existing errors (mostly `BelongsToTenant` generics) — needs a baseline + incremental fix (P0-7). Zero new errors introduced so far.
 - **Soft deletes absent everywhere** (P0-8).
-- **Git**: the entire SchoolOS layer is uncommitted — commit after each slice; `.BAK` auth controller file to delete.
-- **Docs**: move `capabilities/` + this tracker + evaluation into the repo (`E:\Herd\schoolos\docs\`) so they version with code — ❗ pending your call.
+- **Git**: the entire SchoolOS layer is uncommitted — commit after each slice; `.BAK` auth controller file to delete. ✅ committed per slice (Phase 1 policies + housekeeping 26eda58).
+- **Docs**: move `capabilities/` + this tracker + evaluation into the repo (`E:\\Herd\\schoolos\\docs\\`) so they version with code — ✅ done (26eda58); keep this tracker updated as the living status doc.
 - **MySQL**: switched from pgsql — run `migrate:fresh --seed` before live-mode verification.
 - **Live-mode E2E**: UI runs on mocks; flip `VITE_API_MODE=live` against the ngrok tunnel once Phase 0 core lands.
 - **ADRs to record**: (1) headless API + TanStack SPA over handbook's Inertia reference (approved); (2) custom RBAC over spatie/laravel-permission; (3) Laravel Context adoption (P0-9).
@@ -70,17 +70,21 @@ Legend: ✅ done (verified) · 🟡 partial · ⏳ pending · ❗ decision neede
 
 ## 5. Phase 1+ — next plausible actions
 
-**Phase 1 (Notifications) — ✅ DONE (2026-08-30):** event-driven notification infrastructure (tables, `SchoolNotification` base, `TenantDatabaseChannel`, policy-driven dispatcher via `config/notifications.php`, personal inbox endpoints) + 2 live policies (announcement→members, invoice→finance readers) + preference opt-outs. 6 tests.
+**Phase 1 (Notifications) — ✅ DONE (2026-08-30):** event-driven notification infrastructure (tables, `SchoolNotification` base, `TenantDatabaseChannel`, policy-driven dispatcher via `config/notifications.php`, personal inbox endpoints) + live policies (announcement→members, invoice→finance readers, exam→teacher+guardians) + preference opt-outs. Recipient resolvers (`ResolvesNotificationRecipients`) + tenant/permission/teacher/guardian resolvers.
+
+**Phase 1 policies — ✅ ALL DONE (2026-08-30):** absence alerts (guardians of absent students, a85b9fb) · payment receipts (guardians of the invoice student, 2d7522a) · broadcast delivery reports (creator, 11fd3c2). Suite 168 green.
+
+**Housekeeping — ✅ DONE (2026-08-30, 26eda58):** audit report + tracker + evaluation + 10 capability specs moved into `E:\Herd\schoolos\docs\` (now versioned with code) · dead `AuthController.php.BAK` deleted · **admin trash restore** endpoint `POST /api/v1/admin/trash/{resource}/{id}/restore` (15-resource whitelist, tenant-scoped, archived-only; `platform.trash.restore` permission, principal role) — suite 173 green.
 
 Next:
 1. **Live-mode E2E — ✅ DONE (2026-08-30)**: full loop proven against MySQL through the ngrok tunnel — register → signed-URL email verify → login → Day-0 onboarding → campus → student → announcement send → **queued notification delivered with correct tenant context** → inbox API (`unread=1`) → error contract (`404 + trace_id`). MySQL-compat fixes shipped: index identifier lengths, FK-backed unique drops, proxy trust (signed URLs behind ngrok/nginx/Cloudflare).
 2. **Recipient resolvers + results-published policy — ✅ DONE (2026-08-30)**: `ResolvesNotificationRecipients` interface; tenant/permission/teacher/guardian resolvers; `ExamPublished` now notifies the section teacher + guardians of enrolled students (portal users); dispatcher accepts strategies, resolver classes, or arrays. 2 new tests (159 total). Committed.
-3. **More policies**: absence alerts → guardians; payment receipts; broadcast delivery stats — infra is ready, add config + notification + tests per module spec
+3. **More policies — ✅ ALL DONE (2026-08-30)**: absence alerts → guardians (a85b9fb); payment receipts → invoice-student guardians (2d7522a); broadcast delivery stats → creator (11fd3c2). 9 new tests.
 4. **Realtime** (Echo/Pusher: broadcast progress, marksheet presence, feed badges) — Phase 7 per specs
 5. **Discovery** (Scout search: students, users, invoices, announcements)
 6. **AI context builders** (insights module)
 7. **Observability** (Pulse/Horizon wiring; alert on publish-failure rate)
-8. Housekeeping: move `capabilities/` + tracker + evaluation into `E:\Herd\schoolos\docs\`, delete `.BAK`, admin restore endpoints for soft-deleted records — **git checkpoints committed (56202ad, +1)**
+8. Housekeeping — ✅ DONE (2026-08-30, 26eda58): docs into repo, `.BAK` deleted, admin trash restore endpoints shipped
 
 ---
 
