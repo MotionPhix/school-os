@@ -2,9 +2,21 @@
 
 declare(strict_types=1);
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
 
-Artisan::command('inspire', function (): void {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
+/*
+|--------------------------------------------------------------------------
+| Console Routes & Scheduled Tasks
+|--------------------------------------------------------------------------
+|
+| Requires a single cron entry on the server:
+|   * * * * * cd /path-to-project && php artisan schedule:run >> /dev/null 2>&1
+|
+*/
+
+// Identity housekeeping: expire stale invitations, purge dead invitation
+// rows, and deactivate dormant self-serve signups.
+Schedule::command('schoolos:cleanup-accounts')
+    ->dailyAt('02:15')
+    ->withoutOverlapping()
+    ->onOneServer();

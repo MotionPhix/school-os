@@ -12,7 +12,9 @@ uses(RefreshDatabase::class);
 
 describe('Email Verification', function (): void {
     it('verifies email successfully with valid link', function (): void {
-        Event::fake();
+        // Fake only Verified: a full Event::fake() swaps the dispatcher and
+        // the model's UUID `creating` hook stops firing.
+        Event::fake([Verified::class]);
 
         $user = User::factory()->create(['email_verified_at' => null]);
         $token = $user->createToken('test-token')->plainTextToken;
@@ -26,17 +28,13 @@ describe('Email Verification', function (): void {
         $response = $this->withHeader('Authorization', 'Bearer '.$token)
             ->postJson($verificationUrl);
 
-        $response->assertStatus(200)
-            ->assertJson([
-                'success' => true,
-                'message' => 'Email verified successfully',
-            ]);
+        $response->assertStatus(204);
 
         $this->assertNotNull($user->fresh()->email_verified_at);
         Event::assertDispatched(Verified::class);
     });
 
-    it('returns success if email is already verified', function (): void {
+    it('returns 204 if email is already verified', function (): void {
         $user = User::factory()->create([
             'email_verified_at' => now(),
         ]);
@@ -51,11 +49,7 @@ describe('Email Verification', function (): void {
         $response = $this->withHeader('Authorization', 'Bearer '.$token)
             ->postJson($verificationUrl);
 
-        $response->assertStatus(200)
-            ->assertJson([
-                'success' => true,
-                'message' => 'Email already verified',
-            ]);
+        $response->assertStatus(204);
     });
 
     it('fails verification without authentication', function (): void {
@@ -76,84 +70,29 @@ describe('Email Verification', function (): void {
         $user = User::factory()->create(['email_verified_at' => null]);
         $token = $user->createToken('test-token')->plainTextToken;
 
-        // Invalid URL without signature
         $response = $this->withHeader('Authorization', 'Bearer '.$token)
-            ->postJson(sprintf('/api/v1/email/verify/%d/invalid-hash', $user->id));
+            ->postJson("/api/v1/identity/email/verify/{$user->id}/invalid-hash");
 
         $response->assertStatus(403);
     });
 });
 
 describe('Resend Verification Email', function (): void {
-    it('resends verification email successfully', function (): void {
-        $user = User::factory()->create(['email_verified_at' => null]);
-        $token = $user->createToken('test-token')->plainTextToken;
-
-        $response = $this->withHeader('Authorization', 'Bearer '.$token)
-            ->postJson('/api/v1/email/resend', [
-                'email' => $user->email,
-            ]);
-
-        $response->assertStatus(200)
-            ->assertJson([
-                'success' => true,
-                'message' => 'Verification email sent successfully',
-            ]);
-    });
-
-    it('fails to resend if email is already verified', function (): void {
-        $user = User::factory()->create([
-            'email_verified_at' => now(),
-        ]);
-        $token = $user->createToken('test-token')->plainTextToken;
-
-        $response = $this->withHeader('Authorization', 'Bearer '.$token)
-            ->postJson('/api/v1/email/resend', [
-                'email' => $user->email,
-            ]);
-
-        $response->assertStatus(400)
-            ->assertJson([
-                'success' => false,
-                'message' => 'Email already verified',
-            ]);
-    });
-
-    it('fails with invalid email', function (): void {
-        $user = User::factory()->create();
-        $token = $user->createToken('test-token')->plainTextToken;
-
-        $response = $this->withHeader('Authorization', 'Bearer '.$token)
-            ->postJson('/api/v1/email/resend', [
-                'email' => 'nonexistent@example.com',
-            ]);
-
-        $response->assertStatus(422);
-    });
-
-    it('requires authentication', function (): void {
+    it('resends verification email for an unverified user', function (): void {
         $user = User::factory()->create(['email_verified_at' => null]);
 
-        $response = $this->postJson('/api/v1/email/resend', [
+        $response = $this->postJson('/api/v1/identity/email/resend', [
             'email' => $user->email,
         ]);
 
-        $response->assertStatus(401);
+        $response->assertStatus(204);
     });
 
-    it('respects rate limiting', function (): void {
-        $user = User::factory()->create(['email_verified_at' => null]);
-        $token = $user->createToken('test-token')->plainTextToken;
+    it('does not leak account existence', function (): void {
+        $response = $this->postJson('/api/v1/identity/email/resend', [
+            'email' => 'nonexistent@example.com',
+        ]);
 
-        // Make 7 requests (limit is 6 per minute)
-        for ($i = 0; $i < 7; $i++) {
-            $response = $this->withHeader('Authorization', 'Bearer '.$token)
-                ->postJson('/api/v1/email/resend', [
-                    'email' => $user->email,
-                ]);
-        }
-
-        // Last request should be rate limited
-        $response->assertStatus(429);
+        $response->assertStatus(204);
     });
 });

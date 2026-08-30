@@ -28,7 +28,7 @@ return RectorConfig::configure()
     )
     ->withComposerBased(laravel: true)
     ->withCache(
-        cacheDirectory: '/tmp/rector',
+        cacheDirectory: sys_get_temp_dir().'/rector-schoolos',
         cacheClass: FileCacheStorage::class,
     )
     ->withPaths([
@@ -43,6 +43,11 @@ return RectorConfig::configure()
     ->withSkip([
         AddOverrideAttributeToOverriddenMethodsRector::class,
         __DIR__.'/config/database.php',
+        // Rector's parser crashes (assert($startLine > 0)) on these valid
+        // pivot models with #[Fillable] attributes — a Rector bug, not a
+        // code issue. Skipped until upstream fixes it.
+        __DIR__.'/app/Models/StudentGuardian.php',
+        __DIR__.'/app/Models/TenantMembership.php',
     ])
     ->withPreparedSets(
         deadCode: true,

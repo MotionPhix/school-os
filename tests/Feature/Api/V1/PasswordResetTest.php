@@ -10,39 +10,33 @@ use Illuminate\Support\Facades\Password;
 uses(RefreshDatabase::class);
 
 describe('Forgot Password', function (): void {
-    it('sends reset link successfully', function (): void {
+    it('sends reset link without leaking account existence', function (): void {
         $user = User::factory()->create();
 
-        $response = $this->postJson('/api/v1/forgot-password', [
+        $response = $this->postJson('/api/v1/identity/password/forgot', [
             'email' => $user->email,
         ]);
 
-        $response->assertStatus(200)
-            ->assertJson([
-                'success' => true,
-                'message' => 'Password reset link sent to your email',
-            ]);
+        $response->assertStatus(204);
     });
 
-    it('fails with non-existent email', function (): void {
-        $response = $this->postJson('/api/v1/forgot-password', [
+    it('responds 204 for non-existent email', function (): void {
+        $response = $this->postJson('/api/v1/identity/password/forgot', [
             'email' => 'nonexistent@example.com',
         ]);
 
-        $response->assertStatus(422);
+        $response->assertStatus(204);
     });
 
     it('respects rate limiting', function (): void {
         $user = User::factory()->create();
 
-        // Make 7 requests (limit is 6 per minute)
         for ($i = 0; $i < 7; $i++) {
-            $response = $this->postJson('/api/v1/forgot-password', [
+            $response = $this->postJson('/api/v1/identity/password/forgot', [
                 'email' => $user->email,
             ]);
         }
 
-        // Last request should be rate limited
         $response->assertStatus(429);
     });
 });
@@ -53,18 +47,14 @@ describe('Reset Password', function (): void {
 
         $token = Password::createToken($user);
 
-        $response = $this->postJson('/api/v1/reset-password', [
+        $response = $this->postJson('/api/v1/identity/password/reset', [
             'email' => $user->email,
             'token' => $token,
             'password' => 'newpassword123',
             'password_confirmation' => 'newpassword123',
         ]);
 
-        $response->assertStatus(200)
-            ->assertJson([
-                'success' => true,
-                'message' => 'Password reset successfully',
-            ]);
+        $response->assertStatus(204);
 
         // Verify password was changed
         $this->assertTrue(Hash::check('newpassword123', $user->fresh()->password));
@@ -76,25 +66,21 @@ describe('Reset Password', function (): void {
     it('fails with invalid token', function (): void {
         $user = User::factory()->create();
 
-        $response = $this->postJson('/api/v1/reset-password', [
+        $response = $this->postJson('/api/v1/identity/password/reset', [
             'email' => $user->email,
             'token' => 'invalid-token',
             'password' => 'newpassword123',
             'password_confirmation' => 'newpassword123',
         ]);
 
-        $response->assertStatus(400)
-            ->assertJson([
-                'success' => false,
-                'message' => 'Invalid or expired reset token',
-            ]);
+        $response->assertStatus(422);
     });
 
     it('fails with mismatched passwords', function (): void {
         $user = User::factory()->create();
         $token = Password::createToken($user);
 
-        $response = $this->postJson('/api/v1/reset-password', [
+        $response = $this->postJson('/api/v1/identity/password/reset', [
             'email' => $user->email,
             'token' => $token,
             'password' => 'newpassword123',
@@ -105,17 +91,13 @@ describe('Reset Password', function (): void {
     });
 
     it('fails with non-existent email', function (): void {
-        $response = $this->postJson('/api/v1/reset-password', [
+        $response = $this->postJson('/api/v1/identity/password/reset', [
             'email' => 'nonexistent@example.com',
             'token' => 'some-token',
             'password' => 'newpassword123',
             'password_confirmation' => 'newpassword123',
         ]);
 
-        $response->assertStatus(400)
-            ->assertJson([
-                'success' => false,
-                'message' => 'User not found',
-            ]);
+        $response->assertStatus(422);
     });
 });

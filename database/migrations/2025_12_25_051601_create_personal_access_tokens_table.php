@@ -6,16 +6,24 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ * Sanctum's stock migration uses `$table->morphs('tokenable')`, which makes
+ * `tokenable_id` an unsigned BIGINT. Every SchoolOS model — User included —
+ * uses a UUID primary key, so token issuance fails with:
+ *
+ *   SQLSTATE[22P02]: invalid input syntax for type bigint: "019fbbb1-..."
+ *
+ * Fixed at the source with `uuidMorphs` instead of patching afterwards
+ * (a later-dated patch migration would be undone by this file on
+ * `migrate:fresh`, since this one sorts last).
+ */
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('personal_access_tokens', function (Blueprint $table): void {
             $table->id();
-            $table->morphs('tokenable');
+            $table->uuidMorphs('tokenable');
             $table->text('name');
             $table->string('token', 64)->unique();
             $table->text('abilities')->nullable();
@@ -25,9 +33,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('personal_access_tokens');

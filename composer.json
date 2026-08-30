@@ -3,7 +3,13 @@
     "name": "grazulex/laravel-api-kit",
     "type": "project",
     "description": "Laravel REST API starter kit with Sanctum, Spatie packages, Scramble docs, and Pest testing.",
-    "keywords": ["laravel", "api", "rest", "starter-kit", "sanctum"],
+    "keywords": [
+        "laravel",
+        "api",
+        "rest",
+        "starter-kit",
+        "sanctum"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.3",
@@ -49,8 +55,7 @@
             "pint"
         ],
         "test:lint": [
-            "pint --test",
-            "rector --dry-run"
+            "pint --test"
         ],
         "test:types": [
             "phpstan"
@@ -78,6 +83,9 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
+        ],
+        "test:refactor": [
+            "rector --dry-run"
         ]
     },
     "extra": {

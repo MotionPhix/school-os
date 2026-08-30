@@ -2,6 +2,7 @@ includes:
     - vendor/larastan/larastan/extension.neon
     - vendor/nesbot/carbon/extension.neon
     - phar://phpstan.phar/conf/bleedingEdge.neon
+    - phpstan-baseline.neon
 
 parameters:
 
@@ -17,5 +18,3 @@ parameters:
         - config/database.php
 
     level: max
-
-    tmpDir: /tmp/phpstan

@@ -7,6 +7,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Context;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ForceJsonResponse
@@ -30,6 +32,7 @@ final class ForceJsonResponse
                 'success' => false,
                 'message' => 'An error occurred',
                 'data' => $response->getContent(),
+                'trace_id' => Context::get('trace_id') ?? Str::uuid()->toString(),
             ], $response->getStatusCode());
         }
 

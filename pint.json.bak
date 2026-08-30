@@ -1,0 +1,5 @@
+{
+    "rules": {
+        "final_public_method_for_abstract_class": false
+    }
+}
