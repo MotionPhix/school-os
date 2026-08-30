@@ -6,6 +6,7 @@ namespace App\Domains\Communications\Services;
 
 use App\Domains\Communications\Events\MessageThreadReplied;
 use App\Enums\ThreadParticipantRole;
+use App\Events\ThreadReplyCreated;
 use App\Models\MessageThread;
 use App\Models\ThreadMessage;
 use App\Models\User;
@@ -41,6 +42,14 @@ final class ReplyToThread
             $thread->save();
 
             MessageThreadReplied::dispatch($msg);
+
+            ThreadReplyCreated::dispatch(
+                (string) $thread->id,
+                (string) $msg->id,
+                $actor->name,
+                mb_substr($body, 0, 120),
+                $msg->sent_at->toIso8601String(),
+            );
 
             return $msg->refresh();
         });

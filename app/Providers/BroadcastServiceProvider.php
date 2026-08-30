@@ -19,7 +19,10 @@ final class BroadcastServiceProvider extends BaseBroadcastServiceProvider
 {
     public function boot(): void
     {
-        Broadcast::routes(['middleware' => ['auth:sanctum', 'force.json']]);
+        // resolve.tenant derives the active tenant (X-Tenant-Id header) so
+        // channel-authorization callbacks can check permission keys against
+        // the caller's membership roles.
+        Broadcast::routes(['middleware' => ['auth:sanctum', 'force.json', 'resolve.tenant']]);
 
         require base_path('routes/channels.php');
     }

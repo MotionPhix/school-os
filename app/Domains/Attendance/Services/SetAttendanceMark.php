@@ -7,6 +7,7 @@ namespace App\Domains\Attendance\Services;
 use App\Domains\Attendance\Events\AttendanceMarkChanged;
 use App\Domains\Attendance\Support\SessionCounts;
 use App\Enums\AttendanceStatus;
+use App\Events\SessionMarksUpdated;
 use App\Models\AttendanceMark;
 use App\Models\AttendanceSession;
 use App\Models\Student;
@@ -57,6 +58,15 @@ final class SetAttendanceMark
             $session->save();
 
             AttendanceMarkChanged::dispatch($mark);
+
+            SessionMarksUpdated::dispatch(
+                (string) $session->id,
+                (int) $session->present_count,
+                (int) $session->absent_count,
+                (int) $session->late_count,
+                (int) $session->excused_count,
+                (int) $session->total_count,
+            );
 
             return $mark->refresh();
         });
