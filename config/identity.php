@@ -141,6 +141,7 @@ return [
                 'insights.enrollment.read',
                 'insights.academic.read',
                 'insights.financial.read',
+                'insights.ai.read',
                 // Admin & Trash (Principal restores archived records)
                 'platform.trash.restore',
             ],
@@ -237,6 +238,7 @@ return [
                 // Slice 10 — Insights (Bursar sees financial dashboards)
                 'insights.institution.read',
                 'insights.financial.read',
+                'insights.ai.read',
             ],
 
         ],

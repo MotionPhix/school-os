@@ -15,6 +15,7 @@
         "php": "^8.3",
         "dedoc/scramble": "^0.12|^0.13",
         "grazulex/laravel-apiroute": "^2.0",
+        "laravel/ai": "0.11.0",
         "laravel/framework": "^13.0",
         "laravel/reverb": "^1.11",
         "laravel/sanctum": "^4.0",

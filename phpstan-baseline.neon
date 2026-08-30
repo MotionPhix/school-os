@@ -5977,6 +5977,12 @@ parameters:
 			path: app/Models/Role.php
 
 		-
+			rawMessage: 'Class App\Models\Scopes\TenantScope implements generic interface Illuminate\Database\Eloquent\Scope but does not specify its types: TModel'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Scopes/TenantScope.php
+
+		-
 			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
 			identifier: function.alreadyNarrowedType
 			count: 1
@@ -6563,6 +6569,18 @@ parameters:
 			identifier: foreach.nonIterable
 			count: 1
 			path: app/Providers/CapabilityRouteServiceProvider.php
+
+		-
+			rawMessage: 'Parameter #1 $table of static method Illuminate\Support\Facades\Schema::create() expects string, mixed given.'
+			identifier: argument.type
+			count: 2
+			path: database/migrations/2026_08_30_185541_create_agent_conversations_table.php
+
+		-
+			rawMessage: 'Parameter #1 $table of static method Illuminate\Support\Facades\Schema::dropIfExists() expects string, mixed given.'
+			identifier: argument.type
+			count: 2
+			path: database/migrations/2026_08_30_185541_create_agent_conversations_table.php
 
 		-
 			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
