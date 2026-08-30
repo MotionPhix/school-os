@@ -26,6 +26,11 @@ final class AskSchoolAssistant
             throw new LogicException('The insights.ai configuration is invalid.');
         }
 
+        $question = $this->sanitize($question);
+        if ($question === '') {
+            throw new LogicException('The question is empty after sanitization.');
+        }
+
         $facts = $this->context->facts();
 
         $agent = new SchoolAssistant(
@@ -36,5 +41,21 @@ final class AskSchoolAssistant
         $response = $agent->prompt($question, provider: $provider, model: $model, timeout: $timeout);
 
         return (string) $response;
+    }
+
+    /**
+     * Collapse whitespace (newlines/tabs to single spaces) then strip the
+     * remaining control characters so stray bytes cannot reach the model
+     * prompt or inflate the token budget. The control-character class
+     * deliberately excludes \t (0x09), \n (0x0A) and \r (0x0D) — those
+     * are already normalised to spaces by the first pass.
+     */
+    private function sanitize(string $question): string
+    {
+        $collapsed = preg_replace('/\s+/u', ' ', $question);
+
+        $clean = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $collapsed ?? '');
+
+        return trim((string) $clean);
     }
 }

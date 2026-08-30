@@ -42,5 +42,21 @@ final class AppServiceProvider extends ServiceProvider
         RateLimiter::for('authenticated', fn (Request $request) => $request->user()
             ? Limit::perMinute(120)->by($request->user()->id)
             : Limit::perMinute(60)->by($request->ip()));
+
+        // School AI assistant - strict, because every call consumes the
+        // provider's paid key (cost protection, not just abuse protection).
+        RateLimiter::for('insights_ai', function (Request $request) {
+            $perMinute = config('insights.ai.rate_limit_per_minute', 15);
+            if (! is_int($perMinute)) {
+                $perMinute = 15;
+            }
+
+            return Limit::perMinute($perMinute)->by($request->user()?->id ?: $request->ip());
+        });
+
+        // WebSocket channel authorization - socket clients can hammer this
+        // endpoint on every subscribe/reconnect.
+        RateLimiter::for('broadcasting', fn (Request $request) => Limit::perMinute(60)
+            ->by($request->user()?->id ?: $request->ip()));
     }
 }

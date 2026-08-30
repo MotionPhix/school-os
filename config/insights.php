@@ -35,8 +35,9 @@ return [
     'ai' => [
         'enabled' => (bool) env('INSIGHTS_AI_ENABLED', false),
         'provider' => 'zen',
-        'model' => env('OPENCODE_ZEN_MODEL', 'opencode/big-pickle'),
+        'model' => env('OPENCODE_ZEN_MODEL', 'big-pickle'),
         'timeout' => (int) env('INSIGHTS_AI_TIMEOUT', 60),
         'max_question_length' => 500,
+        'rate_limit_per_minute' => (int) env('INSIGHTS_AI_RATE_LIMIT', 15),
     ],
 ];

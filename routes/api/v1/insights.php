@@ -24,4 +24,6 @@ Route::get('institution/snapshot', InstitutionSnapshotController::class)->name('
 Route::get('enrollment/report', EnrollmentReportController::class)->name('enrollment.report');
 Route::get('academic/report', AcademicReportController::class)->name('academic.report');
 Route::get('financial/report', FinancialInsightsController::class)->name('financial.report');
-Route::post('ai/ask', AiAssistantController::class)->name('ai.ask');
+Route::post('ai/ask', AiAssistantController::class)
+    ->middleware('throttle:insights_ai')
+    ->name('ai.ask');
