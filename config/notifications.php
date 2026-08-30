@@ -5,13 +5,16 @@ declare(strict_types=1);
 use App\Domains\Assessments\Events\ExamPublished as ExamPublishedEvent;
 use App\Domains\Attendance\Events\AttendanceSessionSubmitted;
 use App\Domains\Communications\Events\AnnouncementSent as AnnouncementSentEvent;
+use App\Domains\Communications\Events\BroadcastCompleted as BroadcastCompletedEvent;
 use App\Domains\Finance\Events\InvoiceIssued as InvoiceIssuedEvent;
 use App\Domains\Finance\Events\PaymentRecorded as PaymentRecordedEvent;
 use App\Notifications\AnnouncementSent;
+use App\Notifications\BroadcastReport;
 use App\Notifications\ExamPublished;
 use App\Notifications\InvoiceIssued;
 use App\Notifications\PaymentReceipt;
 use App\Notifications\Recipients\AttendanceAbsentGuardianRecipients;
+use App\Notifications\Recipients\BroadcastCreatorRecipients;
 use App\Notifications\Recipients\ExamGuardianRecipients;
 use App\Notifications\Recipients\ExamTeacherRecipients;
 use App\Notifications\Recipients\PaymentGuardianRecipients;
@@ -51,6 +54,10 @@ return [
         PaymentRecordedEvent::class => [
             'notification' => PaymentReceipt::class,
             'recipients' => PaymentGuardianRecipients::class,
+        ],
+        BroadcastCompletedEvent::class => [
+            'notification' => BroadcastReport::class,
+            'recipients' => BroadcastCreatorRecipients::class,
         ],
     ],
 ];
