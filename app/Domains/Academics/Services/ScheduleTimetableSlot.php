@@ -7,6 +7,7 @@ namespace App\Domains\Academics\Services;
 use App\Domains\Academics\Events\TimetableSlotRemoved;
 use App\Domains\Academics\Events\TimetableSlotScheduled;
 use App\Domains\Academics\Support\PeriodGrid;
+use App\Events\TimetableChanged;
 use App\Models\CourseSection;
 use App\Models\TimetableSlot;
 use Illuminate\Support\Facades\DB;
@@ -57,6 +58,8 @@ final class ScheduleTimetableSlot
 
             TimetableSlotScheduled::dispatch($slot);
 
+            $this->pushTimetableChange($slot, 'scheduled');
+
             return $slot->refresh();
         });
     }
@@ -85,6 +88,8 @@ final class ScheduleTimetableSlot
 
             TimetableSlotScheduled::dispatch($slot);
 
+            $this->pushTimetableChange($slot, 'moved');
+
             return $slot->refresh();
         });
     }
@@ -95,7 +100,28 @@ final class ScheduleTimetableSlot
             $snapshot = clone $slot;
             $slot->delete();
             TimetableSlotRemoved::dispatch($snapshot);
+            $this->pushTimetableChange($snapshot, 'removed');
         });
+    }
+
+    private function pushTimetableChange(TimetableSlot $slot, string $action): void
+    {
+        $teacherUserId = $slot->courseSection->teacher->user_id;
+
+        if ($teacherUserId === null) {
+            return;
+        }
+
+        TimetableChanged::dispatch(
+            (string) $slot->id,
+            (string) $slot->course_section_id,
+            $slot->courseSection->section_label,
+            $slot->weekday->value,
+            (int) $slot->period,
+            $slot->room,
+            $action,
+            (string) $teacherUserId,
+        );
     }
 
     /**

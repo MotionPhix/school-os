@@ -6,6 +6,7 @@ namespace App\Domains\Communications\Services;
 
 use App\Domains\Communications\Events\AnnouncementSent;
 use App\Enums\AnnouncementStatus;
+use App\Events\AnnouncementPublished;
 use App\Models\Announcement;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -39,6 +40,14 @@ final class SendAnnouncement
             $ann->save();
 
             AnnouncementSent::dispatch($ann);
+
+            AnnouncementPublished::dispatch(
+                (string) $ann->id,
+                (string) $ann->tenant_id,
+                $ann->title,
+                $ann->author_name,
+                $ann->sent_at->toIso8601String(),
+            );
 
             return $ann->refresh();
         });

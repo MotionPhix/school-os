@@ -277,7 +277,7 @@ it('authorizes the tenant channel for members only', function (): void {
 
     $this->withHeader('X-Tenant-Id', $this->tenant->id)
         ->postJson('/broadcasting/auth', [
-            'channel_name' => "tenant.{$this->tenant->id}",
+            'channel_name' => "private-tenant.{$this->tenant->id}",
             'socket_id' => '123456.789012',
         ])
         ->assertStatus(200);
@@ -286,7 +286,7 @@ it('authorizes the tenant channel for members only', function (): void {
 
     $this->withHeader('X-Tenant-Id', $this->tenant->id)
         ->postJson('/broadcasting/auth', [
-            'channel_name' => "tenant.{$this->tenant->id}",
+            'channel_name' => "private-tenant.{$this->tenant->id}",
             'socket_id' => '123456.789012',
         ])
         ->assertStatus(403);
