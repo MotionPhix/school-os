@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Laravel\Scout\Searchable;
 
 /**
  * @property string $id
@@ -42,9 +43,19 @@ final class Announcement extends Model
 {
     use BelongsToTenant;
     use HasUuid;
+    use Searchable;
     use SoftDeletes;
 
     protected $table = 'comm_announcements';
+
+    /** @return array{title: string, body: string} */
+    public function toSearchableArray(): array
+    {
+        return [
+            'title' => $this->title,
+            'body' => $this->body,
+        ];
+    }
 
     public function author(): BelongsTo
     {

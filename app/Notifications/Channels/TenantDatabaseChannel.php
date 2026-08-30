@@ -19,6 +19,7 @@ use Illuminate\Notifications\Notification;
  */
 final class TenantDatabaseChannel extends DatabaseChannel
 {
+    /** @return array<string, mixed> */
     protected function buildPayload($notifiable, Notification $notification): array
     {
         return [

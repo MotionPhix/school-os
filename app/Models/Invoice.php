@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Laravel\Scout\Searchable;
 
 /**
  * @property string $id
@@ -49,9 +50,20 @@ final class Invoice extends Model
 {
     use BelongsToTenant;
     use HasUuid;
+    use Searchable;
     use SoftDeletes;
 
     protected $table = 'finance_invoices';
+
+    /** @return array{number: string, student_name: string, guardian_name: string} */
+    public function toSearchableArray(): array
+    {
+        return [
+            'number' => $this->number,
+            'student_name' => $this->student_name,
+            'guardian_name' => $this->guardian_name,
+        ];
+    }
 
     public function student(): BelongsTo
     {

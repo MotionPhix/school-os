@@ -9,6 +9,7 @@ use App\Domains\Academics\Events\TimetableSlotScheduled;
 use App\Domains\Academics\Support\PeriodGrid;
 use App\Events\TimetableChanged;
 use App\Models\CourseSection;
+use App\Models\StaffMember;
 use App\Models\TimetableSlot;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -106,21 +107,25 @@ final class ScheduleTimetableSlot
 
     private function pushTimetableChange(TimetableSlot $slot, string $action): void
     {
-        $teacherUserId = $slot->courseSection->teacher->user_id;
+        $section = $slot->courseSection;
+        if (! $section instanceof CourseSection) {
+            return;
+        }
 
-        if ($teacherUserId === null) {
+        $teacher = $section->teacher;
+        if (! $teacher instanceof StaffMember || $teacher->user_id === null) {
             return;
         }
 
         TimetableChanged::dispatch(
             (string) $slot->id,
             (string) $slot->course_section_id,
-            $slot->courseSection->section_label,
+            $section->section_label,
             $slot->weekday->value,
             (int) $slot->period,
             $slot->room,
             $action,
-            (string) $teacherUserId,
+            (string) $teacher->user_id,
         );
     }
 

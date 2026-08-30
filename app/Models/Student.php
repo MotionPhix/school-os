@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Laravel\Scout\Searchable;
 
 /**
  * Student aggregate — master record for a learner enrolled (or being
@@ -64,7 +65,17 @@ final class Student extends Model
 {
     use BelongsToTenant;
     use HasUuid;
+    use Searchable;
     use SoftDeletes;
+
+    /** @return array{full_name: string, admission_number: string} */
+    public function toSearchableArray(): array
+    {
+        return [
+            'full_name' => $this->full_name,
+            'admission_number' => $this->admission_number,
+        ];
+    }
 
     public function campus(): BelongsTo
     {

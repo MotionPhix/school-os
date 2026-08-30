@@ -19,6 +19,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Scout\Searchable;
 
 /**
  * @property string $id
@@ -55,6 +56,16 @@ final class User extends Authenticatable implements MustVerifyEmail
 
     use HasUuid;
     use Notifiable;
+    use Searchable;
+
+    /** @return array{name: string, email: string} */
+    public function toSearchableArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+        ];
+    }
 
     public function memberships(): BelongsToMany
     {
