@@ -6,6 +6,7 @@ namespace App\Domains\Communications\Services;
 
 use App\Domains\Communications\Events\BroadcastCompleted;
 use App\Enums\BroadcastStatus;
+use App\Events\BroadcastProgressUpdated;
 use App\Models\Broadcast;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -35,6 +36,17 @@ final class CompleteBroadcast
             $b->save();
 
             BroadcastCompleted::dispatch($b);
+
+            if ($b->created_by !== null) {
+                BroadcastProgressUpdated::dispatch(
+                    (string) $b->id,
+                    (string) $b->created_by,
+                    BroadcastStatus::Completed->value,
+                    (int) $b->recipient_count,
+                    (int) $b->delivered_count,
+                    (int) $b->failed_count,
+                );
+            }
 
             return $b->refresh();
         });
