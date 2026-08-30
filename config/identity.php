@@ -48,6 +48,7 @@ return [
         ['key' => 'identity.invitations.read', 'domain' => 'identity', 'label' => 'View invites',    'description' => 'See pending, accepted and revoked invitations.'],
         ['key' => 'identity.invitations.write', 'domain' => 'identity', 'label' => 'Manage invites',  'description' => 'Issue, resend and revoke invitations.'],
         ['key' => 'platform.trash.restore', 'domain' => 'platform', 'label' => 'Restore archived records', 'description' => 'Restore soft-deleted records from the trash (tenant-scoped).'],
+        ['key' => 'platform.observability.alert', 'domain' => 'platform', 'label' => 'Receive operational alerts', 'description' => 'In-app alerts for operational failures (e.g. broadcast delivery failures).'],
     ],
 
     /**
@@ -144,6 +145,8 @@ return [
                 'insights.ai.read',
                 // Admin & Trash (Principal restores archived records)
                 'platform.trash.restore',
+                // Observability (Principal receives operational alerts)
+                'platform.observability.alert',
             ],
 
         ],

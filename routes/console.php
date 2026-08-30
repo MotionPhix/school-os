@@ -20,3 +20,10 @@ Schedule::command('schoolos:cleanup-accounts')
     ->dailyAt('02:15')
     ->withoutOverlapping()
     ->onOneServer();
+
+// Observability: alert platform operators about broadcast delivery
+// failures (deduped per broadcast via delivery_alerted_at).
+Schedule::command('schoolos:check-broadcast-deliveries')
+    ->hourly()
+    ->withoutOverlapping()
+    ->onOneServer();

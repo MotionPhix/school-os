@@ -30,6 +30,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $scheduled_for
  * @property Carbon|null $started_at
  * @property Carbon|null $completed_at
+ * @property Carbon|null $delivery_alerted_at
  * @property int $recipient_count
  * @property int $delivered_count
  * @property int $failed_count
@@ -39,7 +40,7 @@ use Illuminate\Support\Carbon;
 #[Fillable([
     'tenant_id', 'name', 'channel', 'audience', 'audience_label',
     'template_snippet', 'status', 'scheduled_for', 'started_at',
-    'completed_at', 'recipient_count', 'delivered_count', 'failed_count',
+    'completed_at', 'delivery_alerted_at', 'recipient_count', 'delivered_count', 'failed_count',
     'cost_minor', 'currency', 'created_by',
 ])]
 final class Broadcast extends Model
@@ -65,6 +66,7 @@ final class Broadcast extends Model
             'scheduled_for' => 'datetime',
             'started_at' => 'datetime',
             'completed_at' => 'datetime',
+            'delivery_alerted_at' => 'datetime',
             'recipient_count' => 'integer',
             'delivered_count' => 'integer',
             'failed_count' => 'integer',
