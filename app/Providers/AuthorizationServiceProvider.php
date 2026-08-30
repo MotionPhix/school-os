@@ -65,6 +65,8 @@ use App\Policies\People\StudentPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\TenantPolicy;
 use App\Policies\TermPolicy;
+use App\Policies\TrashPolicy;
+use App\Policies\TrashResource;
 use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -130,6 +132,9 @@ final class AuthorizationServiceProvider extends ServiceProvider
         Announcement::class => AnnouncementPolicy::class,
         MessageThread::class => MessageThreadPolicy::class,
         Broadcast::class => BroadcastPolicy::class,
+
+        // Admin & Trash
+        TrashResource::class => TrashPolicy::class,
     ];
 
     public function boot(): void

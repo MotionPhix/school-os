@@ -47,6 +47,7 @@ return [
         ['key' => 'identity.tenants.write',    'domain' => 'identity', 'label' => 'Manage tenants',  'description' => 'Create, configure or suspend tenants (platform-level).'],
         ['key' => 'identity.invitations.read', 'domain' => 'identity', 'label' => 'View invites',    'description' => 'See pending, accepted and revoked invitations.'],
         ['key' => 'identity.invitations.write', 'domain' => 'identity', 'label' => 'Manage invites',  'description' => 'Issue, resend and revoke invitations.'],
+        ['key' => 'platform.trash.restore', 'domain' => 'platform', 'label' => 'Restore archived records', 'description' => 'Restore soft-deleted records from the trash (tenant-scoped).'],
     ],
 
     /**
@@ -140,6 +141,8 @@ return [
                 'insights.enrollment.read',
                 'insights.academic.read',
                 'insights.financial.read',
+                // Admin & Trash (Principal restores archived records)
+                'platform.trash.restore',
             ],
 
         ],

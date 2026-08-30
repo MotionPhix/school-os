@@ -1,0 +1,87 @@
+# SchoolOS — Task Tracker & Status
+
+Living status document derived from [schoolos-audit-report.md](schoolos-audit-report.md). Updated: 2026-08-30.
+Legend: ✅ done (verified) · 🟡 partial · ⏳ pending · ❗ decision needed
+
+---
+
+## 1. Phase 0 — Production Foundation
+
+| ID | Item | Status | Evidence | Next action |
+|---|---|---|---|---|
+| P0-1 | **Authorization enforcement, all 9 writable modules** (finance, identity, institution, people, academics, admissions, assessments, attendance, communications; insights read-only verified) | ✅ | Suite 124/124; dedicated keys enforced (`publish`, `issue`, `void`, `refund`, `send`, `archive`, `start`, `cancel`, `summary.read`, `reports.read`…) | — |
+| P0-2 | **TenantContext lifecycle + isolation matrix** (early-binding fix, stale-context elimination, journal fail-closed) | ✅ | `ResolveTenantContext` global middleware; 5 isolation/lifecycle tests | — |
+| P0-3 | **Idempotency** — `Idempotency-Key` support on state-changing endpoints (payments, void, refund, bulk) | ✅ | `EnsureIdempotency` middleware + `idempotency_keys` table; 7 tests (replay, per-tenant scope, in-flight 409, cached 422, read/header no-op) | Next consumer: finance double-submit E2E (with P0-4 row-lock) |
+| P0-4 | **Finance correctness hotfixes** — `lockForUpdate` on `RecordPayment` (double-payment race), integer math cleanup (2 float sites), payment-allocation order | ✅ | Invoice row-lock; integer gateway-fee `intdiv`; dead discount-allocation block removed; 5 correctness tests (settle, partial, overpay/double-pay, gateway fee balanced, discounted issue balanced) | Next: gateway E2E + reconciliation job |
+| P0-5 | **Verified-email enforcement** — apply `EnsureEmailVerified` to tenant routes (or policy: unverified read-only) | ✅ | Middleware fixed (unauthenticated passes through); `verified` in the route group; verification route exempt; 5 tests (block unverified 403, allow verified, verify-then-pass, public routes untouched) | Frontend: render the "verify your email" state on 403 |
+| P0-6 | **Error/correlation contract** — request-id + tenant in every error/log payload; business-oriented errors | ✅ | Standardized `{success, message, errors?, trace_id}` envelope via exception handler; `X-Trace-Id` header on every response; middleware errors aligned; 6 tests (422/404/403/401 envelopes, header on success, idempotency 409) | Frontend: surface trace_id in support flows |
+| P0-7 | **Test infrastructure & CI** — PHPStan baseline (repo has 1 000+ pre-existing errors), Pest helpers cleanup, CI pipeline (lint+types+tests on push) | ✅ | `composer test` fully green: PHPStan baseline (1 342 errors pinned), Pint clean repo-wide + `pint.json`, CI workflow (`.github/workflows/tests.yml`) runs the gate on push/PR; two bugs found & fixed (see §16) | Keep the baseline shrinking; restore Rector to the gate once its parser bug is fixed upstream |
+| P0-8 | **Soft lifecycle** — soft deletes / archive-retire-void over hard deletes (students, guardians, campuses, years, fee drafts) | ✅ | `SoftDeletes` on 15 core models; `deleted_at` in natural-key unique indexes; FormRequest unique rules ignore archived rows; attendance summary excludes archived students; 4 tests (archive+restore, code reuse, finance history intact, summary exclusion) | Restore/purge endpoints (admin), per-module archive UX |
+| P0-9 | **Laravel Context adoption** (queue propagation + log correlation) | ✅ | `TenantContext` now delegates to Illuminate Context; `trace_id` + `actor_id` in every request/job; lifecycle tests green | Verify queue propagation with a real queued flow (Phase 5 notifications) |
+
+## 2. Resolved defect register (found via audits + tests)
+
+| # | Defect | Fixed in | Proof |
+|---|---|---|---|
+| F1 | `RolesAssigned`/`UserSuspended`/`UserReactivated` fatal: readonly `$tenantId` redeclared vs parent | P0-1 slice 1 | tests |
+| F2 | `remind` always 403 for issued invoices (draft-only ability) | P0-1 slice 1 | new `remind` ability |
+| F3 | Bulk invoice issue/void bypassed dedicated permission keys | P0-1 slice 1 | per-row authz |
+| F4 | Cross-tenant IDOR on `User` (show/assignRoles/suspend) | P0-1 slice 1 | membership checks |
+| F5 | Cross-tenant IDOR on `Role` (view/update/delete, system-role bypass) | P0-1 slice 1 | tenant-scoped policy |
+| F6 | Fee-store 500s: NOT NULL `academic_year_label`/`currency` optional | P0-1 slice 1 | required + config default |
+| F7 | Invite gate mismatch: `users.write` instead of `invitations.write` | P0-1 slice 1 | `InvitationPolicy::create` |
+| F8 | Dead auth surface: routes referenced deleted `AuthController` (all 500) | P0-1 slice 1 | removed; identity surface + notification route aliases |
+| F9 | Gradebook could grade non-enrolled students | P0-1 slice 3 | roster check 422 |
+| F10 | Duplicate enrollment silently no-opped | P0-1 slice 3 | 422 + event |
+| F11 | `respondOffer` accepted spoofable `actor_name` | P0-1 slice 3 | actor = authenticated user |
+| F12 | Subject/section duplicates → raw 500 | P0-1 slice 3 | friendly 422 pre-checks |
+| F13 | Attendance summary: wrong key + unscoped joins | P0-1 slice 4 | `summary.read` + join tenant filters |
+| F14 | Report cards: hand-rolled permission resolution (drift risk) | P0-1 slice 4 | `ExamPolicy::viewReports` |
+| F15 | Term delete lacked in-progress guard at policy layer | P0-1 slice 2 | `TermPolicy::delete` |
+| F16 | `UserResource` 500 on null-status users | P0-2 | defensive `status?->value` + factory realism |
+| F17 | `PostJournalEntry` could write wrong-tenant ledger rows in queued contexts | P0-2 | fail-closed 422 + explicit `tenant_id` |
+| F18 | **Cross-tenant binding at request start** — model binding runs before route middleware; stale/null context scoped (or failed to scope) wrong tenant | P0-2 | global `ResolveTenantContext` pre-resolver; lifecycle tests |
+
+## 3. Module status (10 capabilities)
+
+| Module | Authz (P0-1) | Tests | Spec | Known gaps (spec §flags) |
+|---|---|---|---|---|
+| Identity | ✅ | 20 | ✅ | MFA/SSO; verified-email (P0-5); invite expiry tests |
+| Finance | ✅ | 7 | ✅ | gateway; idempotency (P0-3); row-lock (P0-4) |
+| Institution | ✅ | 16 | ✅ | transition matrix tests; year/term state tests |
+| People | ✅ | 12 | ✅ | soft lifecycle (P0-8); portal flow tests |
+| Academics | ✅ | 16 | ✅ | timetable collision matrix tests |
+| Admissions | ✅ | 5 | ✅ | stage matrix tests; conversion flow tests |
+| Assessments | ✅ | 7 | ✅ | state machine + publish-completeness tests |
+| Attendance | ✅ | 8 | ✅ | lifecycle + risk-band tests |
+| Communications | ✅ | 11 | ✅ | lifecycle tests; feed filtering tests |
+| Insights | ✅ (read-only) | 0 | ✅ | reader contract tests |
+
+## 4. Outstanding risks / housekeeping
+
+- **PHPStan baseline**: 1 000+ pre-existing errors (mostly `BelongsToTenant` generics) — needs a baseline + incremental fix (P0-7). Zero new errors introduced so far.
+- **Soft deletes absent everywhere** (P0-8).
+- **Git**: the entire SchoolOS layer is uncommitted — commit after each slice; `.BAK` auth controller file to delete.
+- **Docs**: move `capabilities/` + this tracker + evaluation into the repo (`E:\Herd\schoolos\docs\`) so they version with code — ❗ pending your call.
+- **MySQL**: switched from pgsql — run `migrate:fresh --seed` before live-mode verification.
+- **Live-mode E2E**: UI runs on mocks; flip `VITE_API_MODE=live` against the ngrok tunnel once Phase 0 core lands.
+- **ADRs to record**: (1) headless API + TanStack SPA over handbook's Inertia reference (approved); (2) custom RBAC over spatie/laravel-permission; (3) Laravel Context adoption (P0-9).
+- **Cross-cutting gaps (all specs)**: notifications (Phase 5), realtime (Phase 7), AI, discovery/search, observability — flagged per spec with phase tags; none started.
+
+## 5. Phase 1+ — next plausible actions
+
+**Phase 1 (Notifications) — ✅ DONE (2026-08-30):** event-driven notification infrastructure (tables, `SchoolNotification` base, `TenantDatabaseChannel`, policy-driven dispatcher via `config/notifications.php`, personal inbox endpoints) + 2 live policies (announcement→members, invoice→finance readers) + preference opt-outs. 6 tests.
+
+Next:
+1. **Live-mode E2E — ✅ DONE (2026-08-30)**: full loop proven against MySQL through the ngrok tunnel — register → signed-URL email verify → login → Day-0 onboarding → campus → student → announcement send → **queued notification delivered with correct tenant context** → inbox API (`unread=1`) → error contract (`404 + trace_id`). MySQL-compat fixes shipped: index identifier lengths, FK-backed unique drops, proxy trust (signed URLs behind ngrok/nginx/Cloudflare).
+2. **Recipient resolvers + results-published policy — ✅ DONE (2026-08-30)**: `ResolvesNotificationRecipients` interface; tenant/permission/teacher/guardian resolvers; `ExamPublished` now notifies the section teacher + guardians of enrolled students (portal users); dispatcher accepts strategies, resolver classes, or arrays. 2 new tests (159 total). Committed.
+3. **More policies**: absence alerts → guardians; payment receipts; broadcast delivery stats — infra is ready, add config + notification + tests per module spec
+4. **Realtime** (Echo/Pusher: broadcast progress, marksheet presence, feed badges) — Phase 7 per specs
+5. **Discovery** (Scout search: students, users, invoices, announcements)
+6. **AI context builders** (insights module)
+7. **Observability** (Pulse/Horizon wiring; alert on publish-failure rate)
+8. Housekeeping: move `capabilities/` + tracker + evaluation into `E:\Herd\schoolos\docs\`, delete `.BAK`, admin restore endpoints for soft-deleted records — **git checkpoints committed (56202ad, +1)**
+
+---
+
+*Companion docs: [schoolos-audit-report.md](schoolos-audit-report.md) · [laravel-context-evaluation.md](laravel-context-evaluation.md) · `capabilities/` (10 module specs)*
