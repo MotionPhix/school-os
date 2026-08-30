@@ -84,6 +84,14 @@ Next:
 5. **Discovery — ✅ DONE (2026-08-30, 41ac252)**: `laravel/scout` (database driver, swap later via `SCOUT_DRIVER`); `Searchable` on Student/User/Invoice/Announcement; `GET /api/v1/search?q=` typed results, per-resource permission gating, tenant-scoped (users filtered by membership), 8/type cap. 6 tests — suite 194 green.
 6. **AI context builders — ✅ DONE (2026-08-30)**: School Assistant via **opencode Zen** (`laravel/ai` 0.7.2→0.11 + framework 13.2→13.29 for the `openai-compatible` driver; 0.7.2 only spoke the Responses API). `config/ai.php` 'zen' provider (key from env, model `big-pickle`); `SchoolAssistant` agent (answers ONLY from the tenant snapshot); `AiContextBuilder` (headline KPIs, cohorts, trend, announcements); `POST /api/v1/insights/ai/ask` (permission `insights.ai.read` — principal+bursar; 503 while disabled). Live-validated against the Zen gateway. 4 tests — suite 198 green.
 7. **Observability — ✅ DONE (2026-08-30)**: `GET /api/v1/system/health` (DB/cache/queue/AI-gateway probes; 503 only for criticals; LB-friendly); `schoolos:check-broadcast-deliveries` hourly → in-app `BroadcastDeliveryAlert` (kind `system`) to platform operators (`platform.observability.alert`, principal) when a completed broadcast's failure count/rate crosses the threshold; deduped per broadcast (`delivery_alerted_at`), tenant-scoped. Pulse/Horizon deferred — both need a web dashboard/Redis this API-first app doesn't host. 6 tests — suite 204 green.
+
+## 6. Hardening phase (one track at a time)
+
+- **Track 1 — Security & abuse ✅ (e40eed7)**: AI ask strict limiter (15/min/user, env `INSIGHTS_AI_RATE_LIMIT`) + question sanitization; broadcasting auth limiter (60/min/user); audit confirmed login/register 5/min/IP, password reset 6/min, idempotency on all writes. 4 tests — suite 208 green.
+- **Track 2 — PHPStan baseline reduction** ⏳ next: shrink the ~1350 pinned errors module-by-module (BelongsToTenant generics, magic props).
+- **Track 3 — Finance**: money math edge cases, partial payments, discount rounding, row-lock races.
+- **Track 4 — Attendance + assessments**: risk-band boundaries, marksheet completeness, rollover.
+- **Track 5 — Communications resilience**: delivery retry/backoff, failure taxonomy, dead-letter handling.
 8. Housekeeping — ✅ DONE (2026-08-30, 26eda58): docs into repo, `.BAK` deleted, admin trash restore endpoints shipped
 
 ---
