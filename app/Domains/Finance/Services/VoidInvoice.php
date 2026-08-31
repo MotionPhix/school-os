@@ -26,6 +26,10 @@ final class VoidInvoice
     public function handle(Invoice $invoice, ?User $actor = null, ?string $reason = null): Invoice
     {
         return DB::transaction(function () use ($invoice, $actor, $reason): Invoice {
+            // Lock the row so two concurrent voids cannot both pass the
+            // status check (double-reversal race → duplicate reversal entries).
+            $invoice = Invoice::query()->lockForUpdate()->findOrFail($invoice->id);
+
             if ($invoice->status === InvoiceStatus::Void) {
                 return $invoice;
             }

@@ -28,6 +28,11 @@ final class RefundPayment
     public function handle(Payment $payment, ?User $actor = null, ?string $reason = null): Payment
     {
         return DB::transaction(function () use ($payment, $actor, $reason): Payment {
+            // Lock the payment row so two concurrent refunds cannot both
+            // pass the status check (double-refund race → duplicate
+            // reversals and a double-decremented paid_minor).
+            $payment = Payment::query()->lockForUpdate()->findOrFail($payment->id);
+
             if ($payment->status !== PaymentStatus::Succeeded) {
                 throw ValidationException::withMessages(['status' => 'Only successful payments can be refunded.']);
             }
@@ -49,7 +54,7 @@ final class RefundPayment
             $payment->status = PaymentStatus::Refunded;
             $payment->save();
 
-            $invoice = $payment->invoice()->firstOrFail();
+            $invoice = $payment->invoice()->lockForUpdate()->firstOrFail();
             $invoice->paid_minor = max(0, (int) $invoice->paid_minor - (int) $payment->amount_minor);
             $invoice->save();
             $this->writeInvoice->recomputeTotals($invoice);

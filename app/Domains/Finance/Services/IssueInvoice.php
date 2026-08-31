@@ -37,6 +37,10 @@ final class IssueInvoice
     public function handle(Invoice $invoice, ?User $actor = null): Invoice
     {
         return DB::transaction(function () use ($invoice, $actor): Invoice {
+            // Lock the row so two concurrent issues cannot both pass the
+            // draft check (double-posting race → duplicate AR entries).
+            $invoice = Invoice::query()->lockForUpdate()->findOrFail($invoice->id);
+
             if ($invoice->status !== InvoiceStatus::Draft) {
                 throw ValidationException::withMessages(['status' => 'Only draft invoices can be issued.']);
             }
