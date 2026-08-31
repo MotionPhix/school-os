@@ -45,8 +45,22 @@ return Application::configure(basePath: dirname(__DIR__))
             'resolve.tenant' => ResolveTenant::class,
             'idempotency' => EnsureIdempotency::class,
         ]);
+
+        // There is no web login route — the SPA owns auth. API guests must
+        // get a 401 JSON envelope, never a redirect to route('login')
+        // (which would throw RouteNotFoundException → masked 500).
+        $middleware->redirectGuestsTo(fn (Request $request): ?string => $request->is('api/*')
+            ? null
+            : route('login'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+        // API routes always render JSON. Without this, unauthenticated
+        // requests that omit `Accept: application/json` take Laravel's web
+        // fallback (`Authenticate::redirectTo` → route('login')) — and since
+        // there is no web login route, a client would get a 500 instead of
+        // the intended 401/403.
+        $exceptions->shouldRenderJsonWhen(fn (Request $request): bool => $request->is('api/*'));
+
         // Standardized JSON error envelope for the API (handbook Ch. 20.7-20.8):
         //   { success:false, message, errors?, trace_id }
         // The trace_id matches the X-Trace-Id response header set by

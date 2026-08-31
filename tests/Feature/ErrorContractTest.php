@@ -73,6 +73,18 @@ it('renders a 401 with the envelope for unauthenticated requests', function (): 
         ->assertJsonPath('success', false);
 });
 
+it('renders 401 JSON even when the client omits the Accept header', function (): void {
+    // No `Accept: application/json` — Laravel's web fallback would try to
+    // redirect to route('login'), which does not exist, yielding a 500.
+    // API routes must always render the JSON envelope instead.
+    app('auth')->forgetGuards();
+
+    $this->get('/api/v1/institution/campuses')
+        ->assertStatus(401)
+        ->assertJsonPath('success', false)
+        ->assertJsonPath('message', 'Unauthenticated.');
+});
+
 it('adds X-Trace-Id to success responses', function (): void {
     $this->withHeader('X-Tenant-Id', $this->tenant->id)
         ->getJson('/api/v1/finance/fees')
