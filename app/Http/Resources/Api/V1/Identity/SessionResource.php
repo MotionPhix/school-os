@@ -43,6 +43,12 @@ final class SessionResource extends CapabilityResource
 
         return [
             'user' => (new UserResource($user))->resolve($request),
+            // Landing contract: lets the SPA route deterministically —
+            // unverified → verify screen (also signalled by the 403 from
+            // EnsureEmailVerified), verified without memberships → onboarding,
+            // with memberships → console (invited members land directly).
+            'email_verified' => $user->hasVerifiedEmail(),
+            'has_memberships' => $user->memberships->isNotEmpty(),
             'active_tenant_id' => $activeTenantId,
             'active_role_keys' => $roleKeys,
             'effective_permission_keys' => $permissionKeys,

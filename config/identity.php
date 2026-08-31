@@ -322,6 +322,12 @@ return [
         ],
     ],
 
+    /**
+     * Maximum number of tenants a single account may own. Prevents tenant
+     * spam. Env-tunable via IDENTITY_MAX_TENANTS_PER_USER.
+     */
+    'max_tenants_per_user' => (int) env('IDENTITY_MAX_TENANTS_PER_USER', 5),
+
     'invitation' => [
         'ttl_days' => 14,
     ],

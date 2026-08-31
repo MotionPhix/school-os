@@ -13,6 +13,8 @@ use App\Models\Tenant;
 use App\Models\TenantMembership;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+use RuntimeException;
 
 final class CreateTenant
 {
@@ -25,6 +27,19 @@ final class CreateTenant
      */
     public function handle(array $data, ?User $owner = null): Tenant
     {
+        if ($owner !== null) {
+            $max = config('identity.max_tenants_per_user', 5);
+            if (! is_int($max)) {
+                $max = 5;
+            }
+
+            if ($owner->memberships()->count() >= $max) {
+                throw ValidationException::withMessages([
+                    'slug' => "You have reached the maximum of {$max} tenants per account.",
+                ]);
+            }
+        }
+
         return DB::transaction(function () use ($data, $owner): Tenant {
             $tenant = Tenant::create([
                 'slug' => $data['slug'],
@@ -46,19 +61,24 @@ final class CreateTenant
             // tenant becomes their active one. Without this, a freshly
             // registered user would create a tenant they cannot then enter.
             if ($owner !== null) {
+                // The bootstrap role must come from THIS tenant. Falling
+                // back to a null-tenant (global) role would grant the
+                // creator whatever permissions that role carries across
+                // every tenant — a privilege-escalation hazard. Missing
+                // tenant-scoped role → abort the whole bootstrap.
                 $principalId = Role::query()
                     ->where('tenant_id', $tenant->id)
                     ->where('key', 'principal')
-                    ->value('id')
-                    ?? Role::query()
-                        ->whereNull('tenant_id')
-                        ->where('key', 'principal')
-                        ->value('id');
+                    ->value('id');
+
+                if ($principalId === null) {
+                    throw new RuntimeException('Tenant-scoped principal role missing after role bootstrap.');
+                }
 
                 TenantMembership::query()->create([
                     'user_id' => $owner->id,
                     'tenant_id' => $tenant->id,
-                    'role_ids' => $principalId !== null ? [$principalId] : [],
+                    'role_ids' => [$principalId],
                     'joined_at' => now(),
                 ]);
 
