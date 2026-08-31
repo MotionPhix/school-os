@@ -254,12 +254,17 @@ final class AttendanceSessionController extends CapabilityController
         if ($risk !== '' && $risk !== 'all') {
             $rows = $rows->filter(function ($row) use ($risk): bool {
                 $sessions = max(1, (int) $row->sessions);
-                $rate = ((int) $row->present + (int) $row->late) / $sessions * 100;
+                $presentLike = (int) $row->present + (int) $row->late;
 
+                // Exact integer comparison — float division can drift at the
+                // boundaries (e.g. 9/10 → 90.0) and mis-bucket a student.
+                // at_risk  < 90% ⇔ (p+l)·10 < 9·sessions
+                // critical < 80% ⇔ (p+l)·10 < 8·sessions
+                // perfect  = 100% ⇔ (p+l)·10 ≥ 10·sessions
                 return match ($risk) {
-                    'at_risk' => $rate < 90.0,
-                    'critical' => $rate < 80.0,
-                    'perfect' => $rate >= 100.0,
+                    'at_risk' => $presentLike * 10 < 9 * $sessions,
+                    'critical' => $presentLike * 10 < 8 * $sessions,
+                    'perfect' => $presentLike * 10 >= 10 * $sessions,
                     default => true,
                 };
             })->values();
