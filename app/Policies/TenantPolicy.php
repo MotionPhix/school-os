@@ -29,14 +29,22 @@ final class TenantPolicy
     }
 
     /**
-     * Platform admins can always create tenants. A user with no memberships
-     * at all may create their first one (Day-0 onboarding) — CreateTenant
-     * makes them its principal, so this can only ever happen once per user.
+     * Platform admins can always create tenants. Any other user may create a
+     * tenant while their membership count is below the per-account cap
+     * (`identity.max_tenants_per_user`, default 5) — Day-0 onboarding is the
+     * first of those; multi-tenant owners stay under the same cap, and
+     * CreateTenant re-checks it inside the transaction (defense in depth).
      */
     public function create(User $user): bool
     {
-        return $this->isPlatformAdmin($user)
-            || ! $user->memberships()->exists();
+        if ($this->isPlatformAdmin($user)) {
+            return true;
+        }
+
+        $max = config('identity.max_tenants_per_user');
+        $max = is_int($max) ? max(1, $max) : 5;
+
+        return $user->memberships()->count() < $max;
     }
 
     public function update(User $user, Tenant $tenant): bool

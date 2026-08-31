@@ -45,6 +45,7 @@ return [
         ['key' => 'identity.roles.write',      'domain' => 'identity', 'label' => 'Manage roles',    'description' => 'Create, edit and assign roles.'],
         ['key' => 'identity.tenants.read',     'domain' => 'identity', 'label' => 'View tenants',    'description' => 'See tenants this account belongs to.'],
         ['key' => 'identity.tenants.write',    'domain' => 'identity', 'label' => 'Manage tenants',  'description' => 'Create, configure or suspend tenants (platform-level).'],
+        ['key' => 'identity.tenants.create',   'domain' => 'identity', 'label' => 'Create tenants',  'description' => 'Create a new school (up to the per-account cap of identity.max_tenants_per_user).'],
         ['key' => 'identity.invitations.read', 'domain' => 'identity', 'label' => 'View invites',    'description' => 'See pending, accepted and revoked invitations.'],
         ['key' => 'identity.invitations.write', 'domain' => 'identity', 'label' => 'Manage invites',  'description' => 'Issue, resend and revoke invitations.'],
         ['key' => 'platform.trash.restore', 'domain' => 'platform', 'label' => 'Restore archived records', 'description' => 'Restore soft-deleted records from the trash (tenant-scoped).'],
@@ -73,6 +74,7 @@ return [
                 'identity.users.read',
                 'identity.roles.read',
                 'identity.invitations.read',
+                'identity.tenants.create',
                 // Slice 2 — Institution
                 'institution.profile.read',
                 'institution.profile.write',
