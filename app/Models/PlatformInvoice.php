@@ -6,12 +6,14 @@ namespace App\Models;
 
 use App\Models\Concerns\BelongsToTenant;
 use App\Models\Concerns\HasUuid;
+use App\Policies\PlatformBilling\PlatformInvoicePolicy;
 use Database\Factories\PlatformInvoiceFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\Access\UsePolicy;
 use Illuminate\Support\Carbon;
 
 /**
@@ -33,6 +35,7 @@ use Illuminate\Support\Carbon;
  * @property-read Tenant $tenant
  * @property-read Collection<int, PlatformPayment> $payments
  */
+#[UsePolicy(PlatformInvoicePolicy::class)]
 class PlatformInvoice extends Model
 {
     use BelongsToTenant;

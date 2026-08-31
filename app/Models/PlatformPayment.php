@@ -6,8 +6,10 @@ namespace App\Models;
 
 use App\Models\Concerns\BelongsToTenant;
 use App\Models\Concerns\HasUuid;
+use App\Policies\PlatformBilling\PlatformPaymentPolicy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Auth\Access\UsePolicy;
 use Illuminate\Support\Carbon;
 
 /**
@@ -29,6 +31,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read PlatformInvoice $invoice
  */
+#[UsePolicy(PlatformPaymentPolicy::class)]
 class PlatformPayment extends Model
 {
     use BelongsToTenant;
