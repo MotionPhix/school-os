@@ -34,6 +34,7 @@ use App\Models\StaffMember;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Tenant;
+use App\Models\TenantPaymentProvider;
 use App\Models\Term;
 use App\Models\TimetableSlot;
 use App\Models\User;
@@ -66,6 +67,7 @@ use App\Policies\People\StaffMemberPolicy;
 use App\Policies\People\StudentPolicy;
 use App\Policies\PlatformBilling\PlatformInvoicePolicy;
 use App\Policies\PlatformBilling\PlatformPaymentPolicy;
+use App\Policies\PlatformBilling\TenantPaymentProviderPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\TenantPolicy;
 use App\Policies\TermPolicy;
@@ -135,6 +137,7 @@ final class AuthorizationServiceProvider extends ServiceProvider
         // Platform billing (tenants pay the platform)
         PlatformInvoice::class => PlatformInvoicePolicy::class,
         PlatformPayment::class => PlatformPaymentPolicy::class,
+        TenantPaymentProvider::class => TenantPaymentProviderPolicy::class,
 
         // Communications
         Announcement::class => AnnouncementPolicy::class,

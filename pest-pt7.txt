@@ -1,0 +1,7 @@
+﻿
+   PASS  Tests\Feature\Api\V1\Portal\PortalTest
+  ✓ it starts a checkout with the TENANT credentials when a provider is connected                                0.67s  
+
+  Tests:    1 passed (6 assertions)
+  Duration: 0.90s
+

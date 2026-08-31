@@ -1,0 +1,113 @@
+﻿
+   FAIL  Tests\Feature\Api\V1\Portal\PortalTest
+  ⨯ it lets a guardian see their students with open balances                                                     0.63s  
+  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\Api\V1\Portal\PortalTest > it lets a guardian see their students with open balances            
+  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+TypeError: App\Http\Controllers\Api\V1\Portal\PortalController::ok(): Argument #1 ($data) must be of type array, Illuminate\Support\Collection given, called in E:\Herd\schoolos\app\Http\Controllers\Api\V1\Portal\PortalController.php on line 36 and defined in E:\Herd\schoolos\app\Http\Controllers\Api\V1\Portal\PortalController.php:141
+Stack trace:
+#0 E:\Herd\schoolos\app\Http\Controllers\Api\V1\Portal\PortalController.php(36): App\Http\Controllers\Api\V1\Portal\PortalController->ok(Object(Illuminate\Support\Collection))
+#1 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(46): App\Http\Controllers\Api\V1\Portal\PortalController->students(Object(Illuminate\Http\Request))
+#2 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Routing\Route.php(276): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\Api\V1\Portal\PortalController), 'students')
+#3 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Routing\Route.php(216): Illuminate\Routing\Route->runController()
+#4 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Routing\Router.php(822): Illuminate\Routing\Route->run()
+#5 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(180): Illuminate\Routing\Router->{closure:Illuminate\Routing\Router::runRouteWithinStack():821}(Object(Illuminate\Http\Request))
+#6 E:\Herd\schoolos\app\Http\Middleware\EnsureIdempotency.php(45): Illuminate\Pipeline\Pipeline->{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}(Object(Illuminate\Http\Request))
+#7 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): App\Http\Middleware\EnsureIdempotency->handle(Object(Illuminate\Http\Request), Object(Closure))
+#8 E:\Herd\schoolos\app\Http\Middleware\EnsureEmailVerified.php(36): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#9 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): App\Http\Middleware\EnsureEmailVerified->handle(Object(Illuminate\Http\Request), Object(Closure))
+#10 E:\Herd\schoolos\app\Http\Middleware\LogApiRequests.php(21): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#11 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): App\Http\Middleware\LogApiRequests->handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 E:\Herd\schoolos\app\Http\Middleware\ForceJsonResponse.php(23): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#13 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): App\Http\Middleware\ForceJsonResponse->handle(Object(Illuminate\Http\Request), Object(Closure))
+#14 E:\Herd\schoolos\vendor\grazulex\laravel-apiroute\src\Middleware\FallbackRoute.php(31): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#15 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Grazulex\ApiRoute\Middleware\FallbackRoute->handle(Object(Illuminate\Http\Request), Object(Closure))
+#16 E:\Herd\schoolos\vendor\grazulex\laravel-apiroute\src\Middleware\RateLimitApiVersion.php(35): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#17 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Grazulex\ApiRoute\Middleware\RateLimitApiVersion->handle(Object(Illuminate\Http\Request), Object(Closure))
+#18 E:\Herd\schoolos\vendor\grazulex\laravel-apiroute\src\Middleware\ResolveApiVersion.php(62): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#19 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Grazulex\ApiRoute\Middleware\ResolveApiVersion->handle(Object(Illuminate\Http\Request), Object(Closure))
+#20 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(52): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#21 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php(168): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#23 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php(129): Illuminate\Routing\Middleware\ThrottleRequests->handleRequest(Object(Illuminate\Http\Request), Object(Closure), Array)
+#24 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php(90): Illuminate\Routing\Middleware\ThrottleRequests->handleRequestUsingNamedLimiter(Object(Illuminate\Http\Request), Object(Closure), 'authenticated', Object(Closure))
+#25 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Routing\Middleware\ThrottleRequests->handle(Object(Illuminate\Http\Request), Object(Closure), 'authenticated')
+#26 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Auth\Middleware\Authenticate.php(63): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#27 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Auth\Middleware\Authenticate->handle(Object(Illuminate\Http\Request), Object(Closure), 'sanctum')
+#28 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(137): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#29 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Routing\Router.php(821): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#30 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Routing\Router.php(800): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#31 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Routing\Router.php(764): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#32 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Routing\Router.php(753): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#33 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(200): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#34 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(180): Illuminate\Foundation\Http\Kernel->{closure:Illuminate\Foundation\Http\Kernel::dispatchToRouter():197}(Object(Illuminate\Http\Request))
+#35 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}(Object(Illuminate\Http\Request))
+#36 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#37 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle(Object(Illuminate\Http\Request), Object(Closure))
+#38 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#39 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#40 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#41 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#42 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#43 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#44 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle(Object(Illuminate\Http\Request), Object(Closure))
+#45 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(74): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#46 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Http\Middleware\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#47 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#48 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#49 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#50 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle(Object(Illuminate\Http\Request), Object(Closure))
+#51 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePathEncoding.php(28): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#52 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Http\Middleware\ValidatePathEncoding->handle(Object(Illuminate\Http\Request), Object(Closure))
+#53 E:\Herd\schoolos\app\Http\Middleware\ResolveTenantContext.php(61): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#54 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): App\Http\Middleware\ResolveTenantContext->handle(Object(Illuminate\Http\Request), Object(Closure))
+#55 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(137): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}(Object(Illuminate\Http\Request))
+#56 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(175): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#57 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(144): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#58 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(638): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#59 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(604): Illuminate\Foundation\Testing\TestCase->call('GET', '/api/v1/portal/...', Array, Array, Array, Array, '[]')
+#60 E:\Herd\schoolos\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(381): Illuminate\Foundation\Testing\TestCase->json('GET', '/api/v1/portal/...', Array, Array, 0)
+#61 E:\Herd\schoolos\tests\Feature\Api\V1\Portal\PortalTest.php(100): Illuminate\Foundation\Testing\TestCase->getJson('/api/v1/portal/...')
+#62 E:\Herd\schoolos\vendor\pestphp\pest\src\Factories\TestCaseMethodFactory.php(172): P\Tests\Feature\Api\V1\Portal\PortalTest->{closure:E:\Herd\schoolos\tests\Feature\Api\V1\Portal\PortalTest.php:96}()
+#63 [internal function]: P\Tests\Feature\Api\V1\Portal\PortalTest->{closure:Pest\Factories\TestCaseMethodFactory::getClosure():162}()
+#64 E:\Herd\schoolos\vendor\pestphp\pest\src\Concerns\Testable.php(429): call_user_func_array(Object(Closure), Array)
+#65 E:\Herd\schoolos\vendor\pestphp\pest\src\Support\ExceptionTrace.php(26): P\Tests\Feature\Api\V1\Portal\PortalTest->{closure:Pest\Concerns\Testable::__callClosure():429}()
+#66 E:\Herd\schoolos\vendor\pestphp\pest\src\Concerns\Testable.php(429): Pest\Support\ExceptionTrace::ensure(Object(Closure))
+#67 E:\Herd\schoolos\vendor\pestphp\pest\src\Concerns\Testable.php(331): P\Tests\Feature\Api\V1\Portal\PortalTest->__callClosure(Object(Closure), Array)
+#68 E:\Herd\schoolos\vendor\pestphp\pest\src\Factories\TestCaseFactory.php(170) : eval()'d code(17): P\Tests\Feature\Api\V1\Portal\PortalTest->__runTest(Object(Closure))
+#69 E:\Herd\schoolos\vendor\phpunit\phpunit\src\Framework\TestCase.php(1332): P\Tests\Feature\Api\V1\Portal\PortalTest->__pest_evaluable_it_lets_a_guardian_see_their_students_with_open_balances()
+#70 E:\Herd\schoolos\vendor\phpunit\phpunit\src\Framework\TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+#71 E:\Herd\schoolos\vendor\phpunit\phpunit\src\Framework\TestRunner\TestRunner.php(99): PHPUnit\Framework\TestCase->runBare()
+#72 E:\Herd\schoolos\vendor\phpunit\phpunit\src\Framework\TestCase.php(359): PHPUnit\Framework\TestRunner->run(Object(P\Tests\Feature\Api\V1\Portal\PortalTest))
+#73 E:\Herd\schoolos\vendor\phpunit\phpunit\src\Framework\TestSuite.php(374): PHPUnit\Framework\TestCase->run()
+#74 E:\Herd\schoolos\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#75 E:\Herd\schoolos\vendor\phpunit\phpunit\src\TextUI\Application.php(229): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#76 E:\Herd\schoolos\vendor\pestphp\pest\src\Kernel.php(103): PHPUnit\TextUI\Application->run(Array)
+#77 E:\Herd\schoolos\vendor\pestphp\pest\bin\pest(184): Pest\Kernel->handle(Array, Array)
+#78 E:\Herd\schoolos\vendor\pestphp\pest\bin\pest(192): {closure:E:\Herd\schoolos\vendor\pestphp\pest\bin\pest:18}()
+#79 E:\Herd\schoolos\vendor\bin\pest(119): include('E:\\Herd\\schoolo...')
+#80 {main}
+
+----------------------------------------------------------------------------------
+
+App\Http\Controllers\Api\V1\Portal\PortalController::ok(): Argument #1 ($data) must be of type array, Illuminate\Support\Collection given, called in E:\Herd\schoolos\app\Http\Controllers\Api\V1\Portal\PortalController.php on line 36
+
+  at tests\Feature\Api\V1\Portal\PortalTest.php:101
+     97▕     $s = portalSetup();
+     98▕     Sanctum::actingAs($s['user']);
+     99▕ 
+    100▕     $this->getJson('/api/v1/portal/students')
+  ➜ 101▕         ->assertOk()
+    102▕         ->assertJsonPath('data.0.id', $s['student']->id)
+    103▕         ->assertJsonPath('data.0.full_name', 'Chisomo Banda')
+    104▕         ->assertJsonPath('data.0.open_balance_minor', 10000);
+    105▕ });
+
+
+  Tests:    1 failed (1 assertions)
+  Duration: 0.86s
+

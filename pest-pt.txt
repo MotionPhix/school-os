@@ -1,0 +1,25 @@
+﻿
+   FAIL  Tests\Feature\Api\V1\Portal\PortalTest
+  ⨯ it lets a guardian see their students with open balances                                                     0.55s  
+  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\Api\V1\Portal\PortalTest > it lets a guardian see their students with open balances    Error   
+  Call to undefined method App\Domains\Finance\Services\WriteInvoice::draft()
+
+  at tests\Feature\Api\V1\Portal\PortalTest.php:63
+     59▕     $user = User::factory()->create(['name' => 'Mrs. Banda']);
+     60▕     $guardian->update(['user_id' => $user->id]);
+     61▕     $guardian->students()->attach($student->id, ['tenant_id' => $tenant->id, 'relationship' => 'mother', 'is_primary' => true]);
+     62▕ 
+  ➜  63▕     $invoice = app(WriteInvoice::class)->draft($student, [
+     64▕         ['description' => 'Term 1 fees', 'quantity' => 1, 'unit_price_minor' => 10000],
+     65▕     ], ['currency' => 'MWK', 'due_on' => now()->addDays(14)]);
+     66▕     app(IssueInvoice::class)->handle($invoice);
+     67▕
+
+  1   tests\Feature\Api\V1\Portal\PortalTest.php:63
+  2   tests\Feature\Api\V1\Portal\PortalTest.php:72
+
+
+  Tests:    1 failed (0 assertions)
+  Duration: 0.80s
+

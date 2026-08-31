@@ -1,0 +1,25 @@
+﻿
+   FAIL  Tests\Feature\Api\V1\Portal\PortalTest
+  ⨯ it lets a guardian see their students with open balances                                                     0.64s  
+  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\Api\V1\Portal\PortalTest > it lets a guardian see their students with open…   QueryException   
+  SQLSTATE[23000]: Integrity constraint violation: 19 NOT NULL constraint failed: finance_invoice_lines.category (Connection: sqlite, Database: :memory:, SQL: insert into "finance_invoice_lines" ("tenant_id", "invoice_id", "description", "quantity", "position", "id", "updated_at", "created_at") values (01a059d6-bda5-7351-81a6-cfd2987beb15, 01a059d6-be0d-7050-a2c2-030fa6f5e565, Term 1 fees, 1, 1, 01a059d6-be20-73dd-8f53-d50687147414, 2026-08-31 22:00:40, 2026-08-31 22:00:40))
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:601
+    597▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    598▕ 
+    599▕             $this->recordsHaveBeenModified();
+    600▕ 
+  ➜ 601▕             return $statement->execute();
+    602▕         });
+    603▕     }
+    604▕ 
+    605▕     /**
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:601
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:846
+
+
+  Tests:    1 failed (0 assertions)
+  Duration: 0.88s
+

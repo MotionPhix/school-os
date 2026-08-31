@@ -1,0 +1,22 @@
+﻿
+   FAIL  Tests\Feature\Api\V1\Portal\PortalTest
+  ⨯ it starts a checkout with the TENANT credentials when a provider is connected                                0.59s  
+  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\Api\V1\Portal\PortalTest > it starts a checkout with the TENANT credentials when…  Exception   
+  The class \App\Support\Payments\PayChanguClientFactory is marked final and its methods cannot be replaced. Classes marked final can be passed in to \Mockery::mock() as instantiated objects to create a partial mock, but only if the mock is not subject to type hinting checks.
+
+  at tests\Feature\Api\V1\Portal\PortalTest.php:142
+    138▕     $client->shouldReceive('createCheckout')
+    139▕         ->once()
+    140▕         ->withArgs(fn (array $params): bool => $params['amount'] === 100 && $params['currency'] === 'MWK')
+    141▕         ->andReturn(['checkout_url' => 'https://checkout.paychangu.com/portal', 'tx_ref' => 'prt-123']);
+  ➜ 142▕     $this->mock(PayChanguClientFactory::class)->shouldReceive('make')->once()->andReturn($client);
+    143▕ 
+    144▕     $this->postJson("/api/v1/portal/invoices/{$s['invoice']->id}/checkout")
+    145▕         ->assertOk()
+    146▕         ->assertJsonPath('data.checkout_url', 'https://checkout.paychangu.com/portal')
+
+
+  Tests:    1 failed (1 assertions)
+  Duration: 0.81s
+

@@ -1,0 +1,13 @@
+﻿
+   PASS  Tests\Feature\Api\V1\Portal\PortalTest
+  ✓ it lets a guardian see their students with open balances                                                     0.62s  
+  ✓ it returns the open invoices for one of the guardian students                                                0.06s  
+  ✓ it blocks guardians from other tenants students                                                              0.09s  
+  ✓ it starts a checkout with the TENANT credentials when a provider is connected                                0.08s  
+  ✓ it refuses checkout when the school has no payment provider                                                  0.07s  
+  ✓ it settles the invoice through the webhook (verified with tenant keys)                                       1.00s  
+  ✓ it keeps the provider settings private and round-trips the encrypted keys                                    0.17s  
+
+  Tests:    7 passed (32 assertions)
+  Duration: 2.30s
+

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Api\V1\Billing\BillingController;
 use App\Http\Controllers\Api\V1\Identity\AccountController;
+use App\Http\Controllers\Api\V1\Portal\PortalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -70,8 +71,13 @@ Route::post('identity/password/reset', [AccountController::class, 'resetPassword
     ->middleware(['force.json', 'log.api', 'throttle:6,1'])
     ->name('password.reset');
 
-// ---- PayChangu IPN (public — always re-verified server-side) ---------------
-
+// ---- PayChangu IPNs (public — always re-verified server-side) --------------
+// Platform billing: tenants pay the platform.
 Route::post('billing/webhooks/paychangu', [BillingController::class, 'webhook'])
     ->middleware(['force.json', 'log.api', 'throttle:60,1'])
     ->name('api.v1.billing.webhooks.paychangu');
+
+// Parents portal: parents pay the TENANT (their own PayChangu account).
+Route::post('portal/webhooks/paychangu', [PortalController::class, 'webhook'])
+    ->middleware(['force.json', 'log.api', 'throttle:60,1'])
+    ->name('api.v1.portal.webhooks.paychangu');

@@ -1,0 +1,139 @@
+﻿
+   FAIL  Tests\Feature\Api\V1\Portal\PortalTest
+  ⨯ it lets a guardian see their students with open balances                                                     2.17s  
+  ⨯ it returns the open invoices for one of the guardian students                                                0.05s  
+  ⨯ it blocks guardians from other tenants students                                                              0.04s  
+  ⨯ it starts a checkout with the TENANT credentials when a provider is connected                                0.04s  
+  ⨯ it refuses checkout when the school has no payment provider                                                  0.04s  
+  ⨯ it settles the invoice through the webhook (verified with tenant keys)                                       0.06s  
+  ⨯ it keeps the provider settings private and round-trips the encrypted keys                                    0.04s  
+  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\Api\V1\Portal\PortalTest > it lets a guardian see their students with open…   QueryException   
+  SQLSTATE[23000]: Integrity constraint violation: 19 NOT NULL constraint failed: students.avatar_initials (Connection: sqlite, Database: :memory:, SQL: insert into "students" ("tenant_id", "campus_id", "full_name", "admission_number", "grade_label", "id", "updated_at", "created_at") values (01a059d3-9b0d-70cc-a2f4-fc6cdb1d7c80, 01a059d3-9bb4-71cd-9ed4-e077b66eee54, Chisomo Banda, STD-7287SB, Grade 5, 01a059d3-9c14-7161-99d1-473710f67e16, 2026-08-31 21:57:15, 2026-08-31 21:57:15))
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:601
+    597▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    598▕ 
+    599▕             $this->recordsHaveBeenModified();
+    600▕ 
+  ➜ 601▕             return $statement->execute();
+    602▕         });
+    603▕     }
+    604▕ 
+    605▕     /**
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:601
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:846
+
+  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\Api\V1\Portal\PortalTest > it returns the open invoices for one of the guar…  QueryException   
+  SQLSTATE[23000]: Integrity constraint violation: 19 NOT NULL constraint failed: students.avatar_initials (Connection: sqlite, Database: :memory:, SQL: insert into "students" ("tenant_id", "campus_id", "full_name", "admission_number", "grade_label", "id", "updated_at", "created_at") values (01a059d3-9e0a-72c0-847a-941ad7830e96, 01a059d3-9e0b-709a-8c62-6e24fdbdea46, Chisomo Banda, STD-KB4S6I, Grade 5, 01a059d3-9e0c-71fd-967a-712693a08cd1, 2026-08-31 21:57:15, 2026-08-31 21:57:15))
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:601
+    597▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    598▕ 
+    599▕             $this->recordsHaveBeenModified();
+    600▕ 
+  ➜ 601▕             return $statement->execute();
+    602▕         });
+    603▕     }
+    604▕ 
+    605▕     /**
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:601
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:846
+
+  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\Api\V1\Portal\PortalTest > it blocks guardians from other tenants students    QueryException   
+  SQLSTATE[23000]: Integrity constraint violation: 19 NOT NULL constraint failed: students.avatar_initials (Connection: sqlite, Database: :memory:, SQL: insert into "students" ("tenant_id", "campus_id", "full_name", "admission_number", "grade_label", "id", "updated_at", "created_at") values (01a059d3-9e2f-7381-a6dd-b3f7ff8d2bae, 01a059d3-9e30-73a4-8fa9-ebccd6181d51, Chisomo Banda, STD-XORGWZ, Grade 5, 01a059d3-9e31-727e-b002-f88599c13b21, 2026-08-31 21:57:15, 2026-08-31 21:57:15))
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:601
+    597▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    598▕ 
+    599▕             $this->recordsHaveBeenModified();
+    600▕ 
+  ➜ 601▕             return $statement->execute();
+    602▕         });
+    603▕     }
+    604▕ 
+    605▕     /**
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:601
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:846
+
+  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\Api\V1\Portal\PortalTest > it starts a checkout with the TENANT credentials…  QueryException   
+  SQLSTATE[23000]: Integrity constraint violation: 19 NOT NULL constraint failed: students.avatar_initials (Connection: sqlite, Database: :memory:, SQL: insert into "students" ("tenant_id", "campus_id", "full_name", "admission_number", "grade_label", "id", "updated_at", "created_at") values (01a059d3-9e56-7378-a03b-44f1b0b84be0, 01a059d3-9e57-73d6-9400-0b19a83ff910, Chisomo Banda, STD-0KDLB3, Grade 5, 01a059d3-9e58-72db-84e7-867095ece6ff, 2026-08-31 21:57:15, 2026-08-31 21:57:15))
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:601
+    597▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    598▕ 
+    599▕             $this->recordsHaveBeenModified();
+    600▕ 
+  ➜ 601▕             return $statement->execute();
+    602▕         });
+    603▕     }
+    604▕ 
+    605▕     /**
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:601
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:846
+
+  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\Api\V1\Portal\PortalTest > it refuses checkout when the school has no payme…  QueryException   
+  SQLSTATE[23000]: Integrity constraint violation: 19 NOT NULL constraint failed: students.avatar_initials (Connection: sqlite, Database: :memory:, SQL: insert into "students" ("tenant_id", "campus_id", "full_name", "admission_number", "grade_label", "id", "updated_at", "created_at") values (01a059d3-9e7c-7161-bad1-6dcacc9be5a3, 01a059d3-9e7e-713f-a66e-17b76fbb4bdd, Chisomo Banda, STD-IBYPOM, Grade 5, 01a059d3-9e7f-73ee-8dc2-4466666635c1, 2026-08-31 21:57:16, 2026-08-31 21:57:16))
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:601
+    597▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    598▕ 
+    599▕             $this->recordsHaveBeenModified();
+    600▕ 
+  ➜ 601▕             return $statement->execute();
+    602▕         });
+    603▕     }
+    604▕ 
+    605▕     /**
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:601
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:846
+
+  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\Api\V1\Portal\PortalTest > it settles the invoice through the webhook (veri…  QueryException   
+  SQLSTATE[23000]: Integrity constraint violation: 19 NOT NULL constraint failed: students.avatar_initials (Connection: sqlite, Database: :memory:, SQL: insert into "students" ("tenant_id", "campus_id", "full_name", "admission_number", "grade_label", "id", "updated_at", "created_at") values (01a059d3-9eba-7371-81d8-377f361db351, 01a059d3-9ebb-711c-b8ca-063959683f0e, Chisomo Banda, STD-FFO1EX, Grade 5, 01a059d3-9ebc-7206-a82a-20e3b4c01930, 2026-08-31 21:57:16, 2026-08-31 21:57:16))
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:601
+    597▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    598▕ 
+    599▕             $this->recordsHaveBeenModified();
+    600▕ 
+  ➜ 601▕             return $statement->execute();
+    602▕         });
+    603▕     }
+    604▕ 
+    605▕     /**
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:601
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:846
+
+  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\Api\V1\Portal\PortalTest > it keeps the provider settings private and round…  QueryException   
+  SQLSTATE[23000]: Integrity constraint violation: 19 NOT NULL constraint failed: students.avatar_initials (Connection: sqlite, Database: :memory:, SQL: insert into "students" ("tenant_id", "campus_id", "full_name", "admission_number", "grade_label", "id", "updated_at", "created_at") values (01a059d3-9ee7-734d-af77-5d493f90acf2, 01a059d3-9ee8-719b-bb6a-1a6334e31724, Chisomo Banda, STD-PIGNOF, Grade 5, 01a059d3-9ee9-7354-b378-506b11b718b9, 2026-08-31 21:57:16, 2026-08-31 21:57:16))
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:601
+    597▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    598▕ 
+    599▕             $this->recordsHaveBeenModified();
+    600▕ 
+  ➜ 601▕             return $statement->execute();
+    602▕         });
+    603▕     }
+    604▕ 
+    605▕     /**
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:601
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:846
+
+
+  Tests:    7 failed (0 assertions)
+  Duration: 3.40s
+
