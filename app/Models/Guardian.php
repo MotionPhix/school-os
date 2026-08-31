@@ -10,6 +10,7 @@ use App\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -39,6 +40,9 @@ use Illuminate\Support\Carbon;
  * @property string|null $avatar_path
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read Collection<int, Student> $students
+ * @property-read Collection<int, PersonDocument> $documents
+ * @property-read StudentGuardian $pivot
  */
 #[Fillable([
     'tenant_id',
@@ -63,6 +67,7 @@ final class Guardian extends Model
     use HasUuid;
     use SoftDeletes;
 
+    /** @return BelongsToMany<Student, $this> */
     public function students(): BelongsToMany
     {
         return $this->belongsToMany(Student::class, 'student_guardians')
@@ -71,6 +76,7 @@ final class Guardian extends Model
             ->withTimestamps();
     }
 
+    /** @return MorphMany<PersonDocument, $this> */
     public function documents(): MorphMany
     {
         return $this->morphMany(PersonDocument::class, 'subject', 'subject_type', 'subject_id', 'id');

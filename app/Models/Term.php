@@ -25,6 +25,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon $ends_on
  * @property int $instructional_days
  * @property TermStatus $status
+ * @property-read AcademicYear $academicYear
  */
 #[Fillable([
     'tenant_id',
@@ -42,6 +43,7 @@ final class Term extends Model
     use HasUuid;
     use SoftDeletes;
 
+    /** @return BelongsTo<AcademicYear, $this> */
     public function academicYear(): BelongsTo
     {
         return $this->belongsTo(AcademicYear::class);

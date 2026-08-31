@@ -10,6 +10,7 @@ use App\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -34,6 +35,9 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $opened_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read Collection<int, CalendarEvent> $calendarEvents
+ * @property-read Collection<int, Student> $students
+ * @property-read Collection<int, StaffMember> $staffMembers
  */
 #[Fillable([
     'tenant_id',
@@ -54,16 +58,19 @@ final class Campus extends Model
     use HasUuid;
     use SoftDeletes;
 
+    /** @return HasMany<CalendarEvent, $this> */
     public function calendarEvents(): HasMany
     {
         return $this->hasMany(CalendarEvent::class);
     }
 
+    /** @return HasMany<Student, $this> */
     public function students(): HasMany
     {
         return $this->hasMany(Student::class);
     }
 
+    /** @return HasMany<StaffMember, $this> */
     public function staffMembers(): HasMany
     {
         return $this->hasMany(StaffMember::class);

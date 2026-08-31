@@ -11,6 +11,7 @@ use App\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -38,6 +39,11 @@ use Laravel\Scout\Searchable;
  * @property int $paid_minor
  * @property int $balance_minor
  * @property InvoiceStatus $status
+ * @property-read Student $student
+ * @property-read AcademicYear $academicYear
+ * @property-read Term $term
+ * @property-read Collection<int, InvoiceLine> $lines
+ * @property-read Collection<int, Payment> $payments
  */
 #[Fillable([
     'tenant_id', 'number', 'student_id', 'student_name', 'student_initials',
@@ -65,26 +71,31 @@ final class Invoice extends Model
         ];
     }
 
+    /** @return BelongsTo<Student, $this> */
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);
     }
 
+    /** @return BelongsTo<AcademicYear, $this> */
     public function academicYear(): BelongsTo
     {
         return $this->belongsTo(AcademicYear::class);
     }
 
+    /** @return BelongsTo<Term, $this> */
     public function term(): BelongsTo
     {
         return $this->belongsTo(Term::class);
     }
 
+    /** @return HasMany<InvoiceLine, $this> */
     public function lines(): HasMany
     {
         return $this->hasMany(InvoiceLine::class)->orderBy('position');
     }
 
+    /** @return HasMany<Payment, $this> */
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class)->orderByDesc('received_at');

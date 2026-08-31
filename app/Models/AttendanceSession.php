@@ -10,6 +10,7 @@ use App\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -32,6 +33,8 @@ use Illuminate\Support\Carbon;
  * @property string|null $opened_by
  * @property Carbon|null $taken_at
  * @property Carbon|null $updated_at
+ * @property-read CourseSection $courseSection
+ * @property-read Collection<int, AttendanceMark> $marks
  */
 #[Fillable([
     'tenant_id',
@@ -52,11 +55,13 @@ final class AttendanceSession extends Model
     use BelongsToTenant;
     use HasUuid;
 
+    /** @return BelongsTo<CourseSection, $this> */
     public function courseSection(): BelongsTo
     {
         return $this->belongsTo(CourseSection::class);
     }
 
+    /** @return HasMany<AttendanceMark, $this> */
     public function marks(): HasMany
     {
         return $this->hasMany(AttendanceMark::class, 'session_id');

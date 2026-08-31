@@ -31,6 +31,8 @@ use Illuminate\Support\Carbon;
  * @property bool $all_day
  * @property CalendarAudience $audience
  * @property string|null $description
+ * @property-read AcademicYear $academicYear
+ * @property-read Campus $campus
  */
 #[Fillable([
     'tenant_id',
@@ -50,11 +52,13 @@ final class CalendarEvent extends Model
     use HasUuid;
     use SoftDeletes;
 
+    /** @return BelongsTo<AcademicYear, $this> */
     public function academicYear(): BelongsTo
     {
         return $this->belongsTo(AcademicYear::class);
     }
 
+    /** @return BelongsTo<Campus, $this> */
     public function campus(): BelongsTo
     {
         return $this->belongsTo(Campus::class);

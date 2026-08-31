@@ -12,6 +12,7 @@ use App\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -45,6 +46,9 @@ use Illuminate\Support\Carbon;
  * @property string|null $avatar_path
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read Campus $campus
+ * @property-read User $user
+ * @property-read Collection<int, PersonDocument> $documents
  */
 #[Fillable([
     'tenant_id',
@@ -75,16 +79,19 @@ final class StaffMember extends Model
 
     protected $table = 'staff_members';
 
+    /** @return BelongsTo<Campus, $this> */
     public function campus(): BelongsTo
     {
         return $this->belongsTo(Campus::class);
     }
 
+    /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /** @return MorphMany<PersonDocument, $this> */
     public function documents(): MorphMany
     {
         return $this->morphMany(PersonDocument::class, 'subject', 'subject_type', 'subject_id', 'id');

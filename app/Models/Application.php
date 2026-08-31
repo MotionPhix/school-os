@@ -13,6 +13,7 @@ use App\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -49,6 +50,13 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $submitted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read Campus $campus
+ * @property-read AcademicYear $academicYear
+ * @property-read Guardian $guardian
+ * @property-read Student $student
+ * @property-read Collection<int, ApplicationOffer> $offers
+ * @property-read ApplicationOffer|null $currentOffer
+ * @property-read Collection<int, ApplicationStageEvent> $timeline
  */
 #[Fillable([
     'tenant_id',
@@ -79,37 +87,44 @@ final class Application extends Model
     use HasUuid;
     use SoftDeletes;
 
+    /** @return BelongsTo<Campus, $this> */
     public function campus(): BelongsTo
     {
         return $this->belongsTo(Campus::class);
     }
 
+    /** @return BelongsTo<AcademicYear, $this> */
     public function academicYear(): BelongsTo
     {
         return $this->belongsTo(AcademicYear::class);
     }
 
+    /** @return BelongsTo<Guardian, $this> */
     public function guardian(): BelongsTo
     {
         return $this->belongsTo(Guardian::class);
     }
 
+    /** @return BelongsTo<Student, $this> */
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);
     }
 
+    /** @return HasMany<ApplicationOffer, $this> */
     public function offers(): HasMany
     {
         return $this->hasMany(ApplicationOffer::class);
     }
 
-    /** Convenience: the latest offer (any status) for offer-panel UIs. */
+    /** Convenience: the latest offer (any status) for offer-panel UIs.
+     * @return HasOne<ApplicationOffer, $this> */
     public function currentOffer(): HasOne
     {
         return $this->hasOne(ApplicationOffer::class)->latestOfMany('created_at');
     }
 
+    /** @return HasMany<ApplicationStageEvent, $this> */
     public function timeline(): HasMany
     {
         return $this->hasMany(ApplicationStageEvent::class)->orderBy('occurred_at');

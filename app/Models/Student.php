@@ -13,6 +13,7 @@ use App\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -44,6 +45,14 @@ use Laravel\Scout\Searchable;
  * @property string|null $avatar_path
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property int $invoices_sum_balance_minor
+ * @property int $attendance_total_30d
+ * @property int $attendance_present_30d
+ * @property-read Campus $campus
+ * @property-read Collection<int, Guardian> $guardians
+ * @property-read Collection<int, PersonDocument> $documents
+ * @property-read Collection<int, Invoice> $invoices
+ * @property-read Collection<int, AttendanceMark> $attendanceMarks
  */
 #[Fillable([
     'tenant_id',
@@ -77,11 +86,13 @@ final class Student extends Model
         ];
     }
 
+    /** @return BelongsTo<Campus, $this> */
     public function campus(): BelongsTo
     {
         return $this->belongsTo(Campus::class);
     }
 
+    /** @return BelongsToMany<Guardian, $this> */
     public function guardians(): BelongsToMany
     {
         return $this->belongsToMany(Guardian::class, 'student_guardians')
@@ -90,18 +101,21 @@ final class Student extends Model
             ->withTimestamps();
     }
 
+    /** @return MorphMany<PersonDocument, $this> */
     public function documents(): MorphMany
     {
         return $this->morphMany(PersonDocument::class, 'subject', 'subject_type', 'subject_id', 'id');
     }
 
-    /** Finance capability read-model reference (no write coupling). */
+    /** Finance capability read-model reference (no write coupling).
+     * @return HasMany<Invoice, $this> */
     public function invoices(): HasMany
     {
         return $this->hasMany(Invoice::class);
     }
 
-    /** Attendance capability read-model reference. */
+    /** Attendance capability read-model reference.
+     * @return HasMany<AttendanceMark, $this> */
     public function attendanceMarks(): HasMany
     {
         return $this->hasMany(AttendanceMark::class);

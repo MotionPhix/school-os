@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Concerns;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 /**
@@ -17,7 +18,7 @@ trait HasUuid
 {
     public static function bootHasUuid(): void
     {
-        static::creating(function ($model): void {
+        static::creating(function (Model $model): void {
             $key = $model->getKeyName();
             if (empty($model->{$key})) {
                 $model->{$key} = static::newUuid();
@@ -25,12 +26,9 @@ trait HasUuid
         });
     }
 
-    /** UUID v7 when available (Laravel 11+), UUID v4 otherwise. */
     public static function newUuid(): string
     {
-        return method_exists(Str::class, 'uuid7')
-            ? (string) Str::uuid7()
-            : (string) Str::uuid();
+        return (string) Str::uuid7();
     }
 
     public function getIncrementing(): bool

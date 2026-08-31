@@ -36,7 +36,7 @@ final class SystemRolesSeeder extends Seeder
             // Belt-and-braces: HasUuid normally fills this on `creating`,
             // but seeding must not depend on the boot hook being present.
             if (! $role->exists && empty($role->id)) {
-                $role->id = method_exists(Str::class, 'uuid7') ? (string) Str::uuid7() : (string) Str::uuid();
+                $role->id = (string) Str::uuid7();
             }
 
             $role->fill([

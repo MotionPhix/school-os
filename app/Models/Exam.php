@@ -10,6 +10,7 @@ use App\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -32,6 +33,9 @@ use Illuminate\Support\Carbon;
  * @property ExamStatus $status
  * @property Carbon|null $published_at
  * @property string|null $published_by
+ * @property-read ExamPeriod $period
+ * @property-read CourseSection $courseSection
+ * @property-read Collection<int, ExamResult> $results
  */
 #[Fillable([
     'tenant_id',
@@ -53,16 +57,19 @@ final class Exam extends Model
     use BelongsToTenant;
     use HasUuid;
 
+    /** @return BelongsTo<ExamPeriod, $this> */
     public function period(): BelongsTo
     {
         return $this->belongsTo(ExamPeriod::class, 'period_id');
     }
 
+    /** @return BelongsTo<CourseSection, $this> */
     public function courseSection(): BelongsTo
     {
         return $this->belongsTo(CourseSection::class);
     }
 
+    /** @return HasMany<ExamResult, $this> */
     public function results(): HasMany
     {
         return $this->hasMany(ExamResult::class);

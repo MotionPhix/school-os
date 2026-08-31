@@ -10,6 +10,7 @@ use App\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -28,6 +29,8 @@ use Illuminate\Support\Carbon;
  * @property int $credit_hours
  * @property string|null $description
  * @property Carbon|null $updated_at
+ * @property int $live_sections_count
+ * @property-read Collection<int, CourseSection> $courseSections
  */
 #[Fillable([
     'tenant_id',
@@ -45,6 +48,7 @@ final class Subject extends Model
     use HasUuid;
     use SoftDeletes;
 
+    /** @return HasMany<CourseSection, $this> */
     public function courseSections(): HasMany
     {
         return $this->hasMany(CourseSection::class);

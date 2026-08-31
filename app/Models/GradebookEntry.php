@@ -29,6 +29,9 @@ use Illuminate\Support\Carbon;
  * @property string|null $remarks
  * @property string|null $recorded_by
  * @property Carbon|null $updated_at
+ * @property-read CourseSection $courseSection
+ * @property-read Term $term
+ * @property-read Student $student
  */
 #[Fillable([
     'tenant_id',
@@ -47,16 +50,19 @@ final class GradebookEntry extends Model
     use BelongsToTenant;
     use HasUuid;
 
+    /** @return BelongsTo<CourseSection, $this> */
     public function courseSection(): BelongsTo
     {
         return $this->belongsTo(CourseSection::class);
     }
 
+    /** @return BelongsTo<Term, $this> */
     public function term(): BelongsTo
     {
         return $this->belongsTo(Term::class);
     }
 
+    /** @return BelongsTo<Student, $this> */
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);

@@ -10,6 +10,7 @@ use App\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -33,6 +34,14 @@ use Illuminate\Support\Carbon;
  * @property int $capacity
  * @property CourseStatus $status
  * @property Carbon|null $updated_at
+ * @property int $enrollments_count
+ * @property-read Subject $subject
+ * @property-read AcademicYear $academicYear
+ * @property-read Campus $campus
+ * @property-read StaffMember $teacher
+ * @property-read Collection<int, Student> $students
+ * @property-read Collection<int, TimetableSlot> $timetableSlots
+ * @property-read Collection<int, GradebookEntry> $gradebookEntries
  */
 #[Fillable([
     'tenant_id',
@@ -52,26 +61,31 @@ final class CourseSection extends Model
     use HasUuid;
     use SoftDeletes;
 
+    /** @return BelongsTo<Subject, $this> */
     public function subject(): BelongsTo
     {
         return $this->belongsTo(Subject::class);
     }
 
+    /** @return BelongsTo<AcademicYear, $this> */
     public function academicYear(): BelongsTo
     {
         return $this->belongsTo(AcademicYear::class);
     }
 
+    /** @return BelongsTo<Campus, $this> */
     public function campus(): BelongsTo
     {
         return $this->belongsTo(Campus::class);
     }
 
+    /** @return BelongsTo<StaffMember, $this> */
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(StaffMember::class, 'teacher_id');
     }
 
+    /** @return BelongsToMany<Student, $this> */
     public function students(): BelongsToMany
     {
         return $this->belongsToMany(Student::class, 'course_enrollments')
@@ -79,11 +93,13 @@ final class CourseSection extends Model
             ->withTimestamps();
     }
 
+    /** @return HasMany<TimetableSlot, $this> */
     public function timetableSlots(): HasMany
     {
         return $this->hasMany(TimetableSlot::class)->orderBy('weekday')->orderBy('period');
     }
 
+    /** @return HasMany<GradebookEntry, $this> */
     public function gradebookEntries(): HasMany
     {
         return $this->hasMany(GradebookEntry::class);
