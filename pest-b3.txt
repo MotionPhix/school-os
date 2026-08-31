@@ -1,6 +1,0 @@
-﻿
-In PlatformInvoiceResource.php line 16:
-                                                                                                         
-  Readonly property App\Http\Resources\Api\V1\Billing\PlatformInvoiceResource::$payments must have type  
-                                                                                                         
-
