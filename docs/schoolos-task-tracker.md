@@ -88,6 +88,7 @@ Next:
 ## 6. Hardening phase (one track at a time)
 
 - **Track 1 — Security & abuse ✅ (e40eed7)**: AI ask strict limiter (15/min/user, env `INSIGHTS_AI_RATE_LIMIT`) + question sanitization; broadcasting auth limiter (60/min/user); audit confirmed login/register 5/min/IP, password reset 6/min, idempotency on all writes. 4 tests — suite 208 green.
+- **Onboarding flow — tenant admin path ✅ (0467323)**: `CreateTenant` fails closed — missing tenant-scoped `principal` role throws and rolls back the whole bootstrap (no global-role fallback); tenant spam cap `identity.max_tenants_per_user` (default 5, env `IDENTITY_MAX_TENANTS_PER_USER`, 6th tenant → 422); session landing contract — `/me` now returns `email_verified` + `has_memberships` so the SPA routes deterministically (unverified → verify screen via 403, verified-no-membership → onboarding, membership → console; invited members land directly). 6 tests — suite 214 green.
 - **Track 2 — PHPStan baseline reduction** ⏳ next: shrink the ~1350 pinned errors module-by-module (BelongsToTenant generics, magic props).
 - **Track 3 — Finance**: money math edge cases, partial payments, discount rounding, row-lock races.
 - **Track 4 — Attendance + assessments**: risk-band boundaries, marksheet completeness, rollover.
