@@ -34,6 +34,10 @@ use Illuminate\Support\Carbon;
  * @property int $recipient_count
  * @property int $delivered_count
  * @property int $failed_count
+ * @property int $delivery_retry_count
+ * @property Carbon|null $delivery_next_retry_at
+ * @property Carbon|null $delivery_dead_lettered_at
+ * @property array<string, int>|null $failure_reasons
  * @property int $cost_minor
  * @property CurrencyCode $currency
  */
@@ -41,6 +45,7 @@ use Illuminate\Support\Carbon;
     'tenant_id', 'name', 'channel', 'audience', 'audience_label',
     'template_snippet', 'status', 'scheduled_for', 'started_at',
     'completed_at', 'delivery_alerted_at', 'recipient_count', 'delivered_count', 'failed_count',
+    'delivery_retry_count', 'delivery_next_retry_at', 'delivery_dead_lettered_at', 'failure_reasons',
     'cost_minor', 'currency', 'created_by',
 ])]
 final class Broadcast extends Model
@@ -70,6 +75,10 @@ final class Broadcast extends Model
             'recipient_count' => 'integer',
             'delivered_count' => 'integer',
             'failed_count' => 'integer',
+            'delivery_retry_count' => 'integer',
+            'delivery_next_retry_at' => 'datetime',
+            'delivery_dead_lettered_at' => 'datetime',
+            'failure_reasons' => 'array',
             'cost_minor' => 'integer',
         ];
     }

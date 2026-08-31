@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domains\Communications\Services;
 
 use App\Domains\Communications\Events\BroadcastCompleted;
+use App\Domains\Communications\Support\BroadcastFailureReasonWeights;
 use App\Enums\BroadcastStatus;
 use App\Events\BroadcastProgressUpdated;
 use App\Models\Broadcast;
@@ -28,11 +29,27 @@ final class CompleteBroadcast
 
         return DB::transaction(function () use ($b) {
             $delivered = (int) round($b->recipient_count * 0.97);
+            $failed = max(0, (int) $b->recipient_count - $delivered);
 
             $b->status = BroadcastStatus::Completed;
             $b->completed_at = now();
             $b->delivered_count = $delivered;
-            $b->failed_count = max(0, (int) $b->recipient_count - $delivered);
+            $b->failed_count = $failed;
+
+            // Seed the failure taxonomy (integer distribution) and arm the
+            // first retry after the base backoff interval.
+            $weights = config('observability.broadcast_delivery_retry.failure_weights');
+            $b->failure_reasons = BroadcastFailureReasonWeights::distribute(
+                $failed,
+                is_array($weights) ? $weights : [],
+            );
+            if ($failed > 0) {
+                $baseMinutes = config('observability.broadcast_delivery_retry.base_interval_minutes');
+                $b->delivery_next_retry_at = now()->addMinutes(
+                    is_int($baseMinutes) ? max(1, $baseMinutes) : 15,
+                );
+            }
+
             $b->save();
 
             BroadcastCompleted::dispatch($b);

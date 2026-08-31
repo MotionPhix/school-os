@@ -31,6 +31,9 @@ final class BroadcastDeliveryFailureDetected extends BusinessEvent
             'recipient_count' => (int) $this->broadcast->recipient_count,
             'delivered_count' => (int) $this->broadcast->delivered_count,
             'failed_count' => (int) $this->broadcast->failed_count,
+            'retry_count' => (int) $this->broadcast->delivery_retry_count,
+            'dead_lettered' => $this->broadcast->delivery_dead_lettered_at !== null,
+            'failure_reasons' => $this->broadcast->failure_reasons ?? [],
         ];
     }
 }

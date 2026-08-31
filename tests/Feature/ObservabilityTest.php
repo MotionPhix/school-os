@@ -22,7 +22,7 @@ beforeEach(function (): void {
 
     Sanctum::actingAs($this->principal);
 
-    $this->makeBroadcast = function (int $failed, int $total, ?Carbon $completedAt = null, ?Carbon $alertedAt = null): Broadcast {
+    $this->makeBroadcast = function (int $failed, int $total, ?Carbon $completedAt = null, ?Carbon $alertedAt = null, ?int $retryCount = null): Broadcast {
         return Broadcast::create([
             'tenant_id' => app(TenantContext::class)->id(),
             'name' => 'Term fees reminder',
@@ -34,6 +34,7 @@ beforeEach(function (): void {
             'recipient_count' => $total,
             'delivered_count' => $total - $failed,
             'failed_count' => $failed,
+            'delivery_retry_count' => $retryCount ?? 0,
             'cost_minor' => 1000,
             'currency' => 'MWK',
             'created_by' => null,
@@ -57,7 +58,8 @@ it('reports healthy components on the system health endpoint', function (): void
 });
 
 it('alerts platform operators about failing broadcasts', function (): void {
-    $broadcast = ($this->makeBroadcast)(failed: 8, total: 50);
+    // Retry budget exhausted (max_retries=3) — in-flight retries are not yet "failures".
+    $broadcast = ($this->makeBroadcast)(failed: 8, total: 50, retryCount: 3);
 
     $this->artisan('schoolos:check-broadcast-deliveries')->assertSuccessful();
 
@@ -103,7 +105,7 @@ it('isolates alerts to the event tenant', function (): void {
     $otherPrincipal = User::factory()->create(['name' => 'Other Principal']);
     makeMember($otherPrincipal, $otherTenant, ['platform.observability.alert']);
 
-    ($this->makeBroadcast)(failed: 8, total: 50);
+    ($this->makeBroadcast)(failed: 8, total: 50, retryCount: 3);
 
     $this->artisan('schoolos:check-broadcast-deliveries')->assertSuccessful();
 

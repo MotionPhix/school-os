@@ -27,3 +27,10 @@ Schedule::command('schoolos:check-broadcast-deliveries')
     ->hourly()
     ->withoutOverlapping()
     ->onOneServer();
+
+// Communications resilience: retry failed broadcast deliveries with
+// exponential backoff; dead-letter broadcasts past their retry budget.
+Schedule::command('schoolos:retry-broadcast-deliveries')
+    ->everyFifteenMinutes()
+    ->withoutOverlapping()
+    ->onOneServer();

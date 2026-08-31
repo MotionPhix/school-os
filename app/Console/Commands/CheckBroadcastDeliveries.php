@@ -36,6 +36,9 @@ final class CheckBroadcastDeliveries extends Command
             $lookback = 24;
         }
 
+        $maxRetriesRaw = config('observability.broadcast_delivery_retry.max_retries');
+        $maxRetries = is_int($maxRetriesRaw) ? max(0, $maxRetriesRaw) : 3;
+
         $alerts = 0;
 
         foreach (Tenant::query()->cursor() as $tenantModel) {
@@ -43,10 +46,15 @@ final class CheckBroadcastDeliveries extends Command
 
             $since = Carbon::now()->subHours($lookback);
 
+            // Only broadcasts that are dead-lettered or past their retry
+            // budget are alerted — in-flight retries are not yet "failures".
             $candidates = Broadcast::query()
                 ->where('status', BroadcastStatus::Completed->value)
                 ->whereNull('delivery_alerted_at')
                 ->where('completed_at', '>=', $since)
+                ->where(fn ($q) => $q
+                    ->whereNotNull('delivery_dead_lettered_at')
+                    ->orWhere('delivery_retry_count', '>=', $maxRetries))
                 ->get();
 
             foreach ($candidates as $broadcast) {
