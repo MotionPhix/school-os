@@ -34,6 +34,7 @@ return [
         'finance',
         'communications',
         'insights',
+        'billing',
     ],
 
     'permissions' => [
@@ -75,6 +76,8 @@ return [
                 'identity.roles.read',
                 'identity.invitations.read',
                 'identity.tenants.create',
+                'billing.payments.read',
+                'billing.payments.write',
                 // Slice 2 — Institution
                 'institution.profile.read',
                 'institution.profile.write',

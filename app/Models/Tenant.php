@@ -7,9 +7,11 @@ namespace App\Models;
 use App\Enums\TenantStatus;
 use App\Enums\TenantTier;
 use App\Models\Concerns\HasUuid;
+use Database\Factories\TenantFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -40,6 +42,9 @@ use Illuminate\Support\Carbon;
 ])]
 final class Tenant extends Model
 {
+    /** @use HasFactory<TenantFactory> */
+    use HasFactory;
+
     use HasUuid;
 
     public function users(): BelongsToMany

@@ -27,6 +27,8 @@ use App\Models\Invoice;
 use App\Models\MessageThread;
 use App\Models\Payment;
 use App\Models\PersonDocument;
+use App\Models\PlatformInvoice;
+use App\Models\PlatformPayment;
 use App\Models\Role;
 use App\Models\StaffMember;
 use App\Models\Student;
@@ -62,6 +64,8 @@ use App\Policies\People\GuardianPolicy;
 use App\Policies\People\PersonDocumentPolicy;
 use App\Policies\People\StaffMemberPolicy;
 use App\Policies\People\StudentPolicy;
+use App\Policies\PlatformBilling\PlatformInvoicePolicy;
+use App\Policies\PlatformBilling\PlatformPaymentPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\TenantPolicy;
 use App\Policies\TermPolicy;
@@ -127,6 +131,10 @@ final class AuthorizationServiceProvider extends ServiceProvider
         FeeStructure::class => FeeStructurePolicy::class,
         Invoice::class => InvoicePolicy::class,
         Payment::class => PaymentPolicy::class,
+
+        // Platform billing (tenants pay the platform)
+        PlatformInvoice::class => PlatformInvoicePolicy::class,
+        PlatformPayment::class => PlatformPaymentPolicy::class,
 
         // Communications
         Announcement::class => AnnouncementPolicy::class,

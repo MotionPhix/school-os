@@ -1,0 +1,103 @@
+﻿
+   FAIL  Tests\Feature\Api\V1\Billing\BillingTest
+  ✓ it returns the billing overview and issues the current-period invoice on first read                          0.59s  
+  ⨯ it starts a PayChangu checkout for the current invoice                                                       0.05s  
+  ⨯ it reuses the pending payment on repeated checkouts                                                          0.03s  
+  ⨯ it settles the invoice when verification succeeds                                                            0.04s  
+  ⨯ it marks the payment failed when verification fails and leaves the invoice open                              0.04s  
+  ⨯ it settles the invoice through the public webhook (re-verified server-side)                                  0.03s  
+  ✓ it denies billing access without the billing permissions                                                     0.04s  
+  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\Api\V1\Billing\BillingTest > it starts a PayChangu checkout for the…  BadMethodCallException   
+  Call to undefined method App\Models\PlatformInvoice::factory()
+
+  at vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+     63▕      * @throws \BadMethodCallException
+     64▕      */
+     65▕     protected static function throwBadMethodCallException($method)
+     66▕     {
+  ➜  67▕         throw new BadMethodCallException(sprintf(
+     68▕             'Call to undefined method %s::%s()', static::class, $method
+     69▕         ));
+     70▕     }
+     71▕ }
+
+  1   vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+  2   vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:36
+
+  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\Api\V1\Billing\BillingTest > it reuses the pending payment on repea…  BadMethodCallException   
+  Call to undefined method App\Models\PlatformInvoice::factory()
+
+  at vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+     63▕      * @throws \BadMethodCallException
+     64▕      */
+     65▕     protected static function throwBadMethodCallException($method)
+     66▕     {
+  ➜  67▕         throw new BadMethodCallException(sprintf(
+     68▕             'Call to undefined method %s::%s()', static::class, $method
+     69▕         ));
+     70▕     }
+     71▕ }
+
+  1   vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+  2   vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:36
+
+  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\Api\V1\Billing\BillingTest > it settles the invoice when verificati…  BadMethodCallException   
+  Call to undefined method App\Models\PlatformInvoice::factory()
+
+  at vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+     63▕      * @throws \BadMethodCallException
+     64▕      */
+     65▕     protected static function throwBadMethodCallException($method)
+     66▕     {
+  ➜  67▕         throw new BadMethodCallException(sprintf(
+     68▕             'Call to undefined method %s::%s()', static::class, $method
+     69▕         ));
+     70▕     }
+     71▕ }
+
+  1   vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+  2   vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:36
+
+  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\Api\V1\Billing\BillingTest > it marks the payment failed when verif…  BadMethodCallException   
+  Call to undefined method App\Models\PlatformInvoice::factory()
+
+  at vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+     63▕      * @throws \BadMethodCallException
+     64▕      */
+     65▕     protected static function throwBadMethodCallException($method)
+     66▕     {
+  ➜  67▕         throw new BadMethodCallException(sprintf(
+     68▕             'Call to undefined method %s::%s()', static::class, $method
+     69▕         ));
+     70▕     }
+     71▕ }
+
+  1   vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+  2   vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:36
+
+  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\Api\V1\Billing\BillingTest > it settles the invoice through the pub…  BadMethodCallException   
+  Call to undefined method App\Models\PlatformInvoice::factory()
+
+  at vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+     63▕      * @throws \BadMethodCallException
+     64▕      */
+     65▕     protected static function throwBadMethodCallException($method)
+     66▕     {
+  ➜  67▕         throw new BadMethodCallException(sprintf(
+     68▕             'Call to undefined method %s::%s()', static::class, $method
+     69▕         ));
+     70▕     }
+     71▕ }
+
+  1   vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+  2   vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:36
+
+
+  Tests:    5 failed, 2 passed (13 assertions)
+  Duration: 1.06s
+

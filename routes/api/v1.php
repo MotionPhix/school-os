@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Api\V1\Billing\BillingController;
 use App\Http\Controllers\Api\V1\Identity\AccountController;
 use Illuminate\Support\Facades\Route;
 
@@ -68,3 +69,9 @@ Route::post('identity/email/verify/{id}/{hash}', [AccountController::class, 'ver
 Route::post('identity/password/reset', [AccountController::class, 'resetPassword'])
     ->middleware(['force.json', 'log.api', 'throttle:6,1'])
     ->name('password.reset');
+
+// ---- PayChangu IPN (public — always re-verified server-side) ---------------
+
+Route::post('billing/webhooks/paychangu', [BillingController::class, 'webhook'])
+    ->middleware(['force.json', 'log.api', 'throttle:60,1'])
+    ->name('api.v1.billing.webhooks.paychangu');

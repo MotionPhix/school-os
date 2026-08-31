@@ -7,6 +7,7 @@ namespace App\Models\Concerns;
 use App\Models\Scopes\TenantScope;
 use App\Models\Tenant;
 use App\Support\TenantContext;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -25,16 +26,17 @@ trait BelongsToTenant
     {
         static::addGlobalScope(new TenantScope);
 
-        static::creating(function ($model): void {
-            if (empty($model->tenant_id)) {
+        static::creating(function (Model $model): void {
+            if (empty($model->getAttribute('tenant_id'))) {
                 $tenantId = app(TenantContext::class)->id();
                 if ($tenantId !== null) {
-                    $model->tenant_id = $tenantId;
+                    $model->setAttribute('tenant_id', $tenantId);
                 }
             }
         });
     }
 
+    /** @return BelongsTo<Tenant, $this> */
     public function tenant(): BelongsTo
     {
         return $this->belongsTo(Tenant::class);
