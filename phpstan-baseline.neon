@@ -13,51 +13,15 @@ parameters:
 			path: app/Console/Commands/CleanupDormantAccounts.php
 
 		-
-			rawMessage: Access to an undefined property App\Models\CourseSection::$enrollments_count.
-			identifier: property.notFound
-			count: 1
-			path: app/Domains/Academics/Services/BulkAcademicsAction.php
-
-		-
-			rawMessage: Access to an undefined property App\Models\Subject::$live_sections_count.
-			identifier: property.notFound
-			count: 1
-			path: app/Domains/Academics/Services/BulkAcademicsAction.php
-
-		-
 			rawMessage: 'Cannot call method where() on mixed.'
 			identifier: method.nonObject
 			count: 1
 			path: app/Domains/Academics/Services/BulkAcademicsAction.php
 
 		-
-			rawMessage: 'Part $section->enrollments_count (mixed) of encapsed string cannot be cast to string.'
-			identifier: encapsedStringPart.nonString
-			count: 1
-			path: app/Domains/Academics/Services/BulkAcademicsAction.php
-
-		-
-			rawMessage: 'Part $subject->live_sections_count (mixed) of encapsed string cannot be cast to string.'
-			identifier: encapsedStringPart.nonString
-			count: 1
-			path: app/Domains/Academics/Services/BulkAcademicsAction.php
-
-		-
-			rawMessage: Cannot access property $full_name on Illuminate\Database\Eloquent\Model|null.
-			identifier: property.nonObject
-			count: 3
-			path: app/Domains/Academics/Services/BulkGradebookAction.php
-
-		-
 			rawMessage: Cannot cast mixed to int.
 			identifier: cast.int
 			count: 4
-			path: app/Domains/Academics/Services/BulkGradebookAction.php
-
-		-
-			rawMessage: 'Part $entry->student->full_name (mixed) of encapsed string cannot be cast to string.'
-			identifier: encapsedStringPart.nonString
-			count: 3
 			path: app/Domains/Academics/Services/BulkGradebookAction.php
 
 		-
@@ -75,6 +39,12 @@ parameters:
 		-
 			rawMessage: Cannot cast mixed to string.
 			identifier: cast.string
+			count: 1
+			path: app/Domains/Academics/Services/ScheduleTimetableSlot.php
+
+		-
+			rawMessage: Instanceof between App\Models\StaffMember and App\Models\StaffMember will always evaluate to true.
+			identifier: instanceof.alwaysTrue
 			count: 1
 			path: app/Domains/Academics/Services/ScheduleTimetableSlot.php
 
@@ -133,32 +103,8 @@ parameters:
 			path: app/Domains/Academics/Support/PeriodGrid.php
 
 		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$responded_at.
-			identifier: property.notFound
-			count: 1
-			path: app/Domains/Admissions/Services/RespondToOffer.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$status.
-			identifier: property.notFound
-			count: 1
-			path: app/Domains/Admissions/Services/RespondToOffer.php
-
-		-
-			rawMessage: Cannot access property $value on mixed.
-			identifier: property.nonObject
-			count: 1
-			path: app/Domains/Admissions/Services/RespondToOffer.php
-
-		-
-			rawMessage: 'Parameter #2 $offer of event class App\Domains\Admissions\Events\OfferResponded constructor expects App\Models\ApplicationOffer in App\Domains\Admissions\Events\OfferResponded::dispatch(), Illuminate\Database\Eloquent\Model|null given.'
+			rawMessage: 'Parameter #2 $offer of event class App\Domains\Admissions\Events\OfferResponded constructor expects App\Models\ApplicationOffer in App\Domains\Admissions\Events\OfferResponded::dispatch(), App\Models\ApplicationOffer|null given.'
 			identifier: argument.type
-			count: 1
-			path: app/Domains/Admissions/Services/RespondToOffer.php
-
-		-
-			rawMessage: 'Part $offer->status->value (mixed) of encapsed string cannot be cast to string.'
-			identifier: encapsedStringPart.nonString
 			count: 1
 			path: app/Domains/Admissions/Services/RespondToOffer.php
 
@@ -169,22 +115,10 @@ parameters:
 			path: app/Domains/Admissions/Services/RespondToOffer.php
 
 		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$status.
-			identifier: property.notFound
-			count: 1
-			path: app/Domains/Admissions/Services/SendOffer.php
-
-		-
 			rawMessage: Cannot cast mixed to int.
 			identifier: cast.int
 			count: 1
 			path: app/Domains/Admissions/Services/SendOffer.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$status.
-			identifier: property.notFound
-			count: 1
-			path: app/Domains/Admissions/Services/StageTransitionGuard.php
 
 		-
 			rawMessage: Cannot cast mixed to string.
@@ -233,18 +167,6 @@ parameters:
 			identifier: nullsafe.neverNull
 			count: 2
 			path: app/Domains/Assessments/Events/ExamPeriodCreated.php
-
-		-
-			rawMessage: 'Call to an undefined method Illuminate\Database\Eloquent\Relations\HasMany::graded().'
-			identifier: method.notFound
-			count: 1
-			path: app/Domains/Assessments/Events/ExamPublished.php
-
-		-
-			rawMessage: 'Cannot call method count() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Domains/Assessments/Events/ExamPublished.php
 
 		-
 			rawMessage: Access to an undefined property App\Models\ExamResult::$course_section_id.
@@ -313,98 +235,20 @@ parameters:
 			path: app/Domains/Assessments/Services/BuildTermReportCards.php
 
 		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$subject.
-			identifier: property.notFound
+			rawMessage: Expression on left side of ?? is not nullable.
+			identifier: nullCoalesce.expr
 			count: 1
 			path: app/Domains/Assessments/Services/BulkAssessmentsAction.php
 
 		-
-			rawMessage: Cannot access property $code on mixed.
-			identifier: property.nonObject
-			count: 1
-			path: app/Domains/Assessments/Services/BulkAssessmentsAction.php
-
-		-
-			rawMessage: 'Parameter #2 ...$values of function sprintf expects bool|float|int|string|null, mixed given.'
-			identifier: argument.type
-			count: 1
-			path: app/Domains/Assessments/Services/BulkAssessmentsAction.php
-
-		-
-			rawMessage: Using nullsafe property access "?->code" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Domains/Assessments/Services/BulkAssessmentsAction.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$score.
-			identifier: property.notFound
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
 			count: 1
 			path: app/Domains/Assessments/Services/BulkSetExamResults.php
 
 		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$student_id.
-			identifier: property.notFound
-			count: 1
-			path: app/Domains/Assessments/Services/BulkSetExamResults.php
-
-		-
-			rawMessage: 'Argument of an invalid type mixed supplied for foreach, only iterables are supported.'
-			identifier: foreach.nonIterable
-			count: 1
-			path: app/Domains/Assessments/Services/BulkSetExamResults.php
-
-		-
-			rawMessage: 'Call to an undefined method Illuminate\Database\Eloquent\Model::students().'
-			identifier: method.notFound
-			count: 1
-			path: app/Domains/Assessments/Services/BulkSetExamResults.php
-
-		-
-			rawMessage: Cannot access property $id on mixed.
-			identifier: property.nonObject
-			count: 2
-			path: app/Domains/Assessments/Services/BulkSetExamResults.php
-
-		-
-			rawMessage: 'Cannot call method get() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Domains/Assessments/Services/BulkSetExamResults.php
-
-		-
-			rawMessage: Cannot cast mixed to int.
-			identifier: cast.int
-			count: 1
-			path: app/Domains/Assessments/Services/BulkSetExamResults.php
-
-		-
-			rawMessage: Cannot cast mixed to string.
-			identifier: cast.string
-			count: 2
-			path: app/Domains/Assessments/Services/BulkSetExamResults.php
-
-		-
-			rawMessage: 'Parameter #1 $key of method Illuminate\Support\Collection<(int|string),mixed>::has() expects array<(int|string)>|int|string, mixed given.'
-			identifier: argument.type
-			count: 1
-			path: app/Domains/Assessments/Services/BulkSetExamResults.php
-
-		-
-			rawMessage: 'Call to an undefined method Illuminate\Database\Eloquent\Model::students().'
-			identifier: method.notFound
-			count: 1
-			path: app/Domains/Assessments/Services/SetExamResult.php
-
-		-
-			rawMessage: 'Cannot call method exists() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Domains/Assessments/Services/SetExamResult.php
-
-		-
-			rawMessage: 'Cannot call method whereKey() on mixed.'
-			identifier: method.nonObject
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
 			count: 1
 			path: app/Domains/Assessments/Services/SetExamResult.php
 
@@ -415,36 +259,6 @@ parameters:
 			path: app/Domains/Assessments/Services/SetExamResult.php
 
 		-
-			rawMessage: 'Call to an undefined method Illuminate\Database\Eloquent\Model::students().'
-			identifier: method.notFound
-			count: 1
-			path: app/Domains/Assessments/Services/SetExamStatus.php
-
-		-
-			rawMessage: 'Call to an undefined method Illuminate\Database\Eloquent\Relations\HasMany::graded().'
-			identifier: method.notFound
-			count: 1
-			path: app/Domains/Assessments/Services/SetExamStatus.php
-
-		-
-			rawMessage: 'Cannot call method count() on mixed.'
-			identifier: method.nonObject
-			count: 2
-			path: app/Domains/Assessments/Services/SetExamStatus.php
-
-		-
-			rawMessage: 'Part $enrolled (mixed) of encapsed string cannot be cast to string.'
-			identifier: encapsedStringPart.nonString
-			count: 1
-			path: app/Domains/Assessments/Services/SetExamStatus.php
-
-		-
-			rawMessage: 'Part $graded (mixed) of encapsed string cannot be cast to string.'
-			identifier: encapsedStringPart.nonString
-			count: 1
-			path: app/Domains/Assessments/Services/SetExamStatus.php
-
-		-
 			rawMessage: Cannot cast mixed to int.
 			identifier: cast.int
 			count: 3
@@ -453,12 +267,6 @@ parameters:
 		-
 			rawMessage: Cannot cast mixed to string.
 			identifier: cast.string
-			count: 1
-			path: app/Domains/Assessments/Services/WriteExam.php
-
-		-
-			rawMessage: 'Parameter #1 $period of method App\Domains\Assessments\Services\WriteExam::assertDateInsidePeriod() expects App\Models\ExamPeriod, Illuminate\Database\Eloquent\Model given.'
-			identifier: argument.type
 			count: 1
 			path: app/Domains/Assessments/Services/WriteExam.php
 
@@ -499,27 +307,9 @@ parameters:
 			path: app/Domains/Attendance/Events/AttendanceSessionSubmitted.php
 
 		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$subject.
-			identifier: property.notFound
-			count: 1
-			path: app/Domains/Attendance/Services/BulkAttendanceAction.php
-
-		-
-			rawMessage: Cannot access property $code on mixed.
-			identifier: property.nonObject
-			count: 1
-			path: app/Domains/Attendance/Services/BulkAttendanceAction.php
-
-		-
 			rawMessage: Expression on left side of ?? is not nullable.
 			identifier: nullCoalesce.expr
-			count: 1
-			path: app/Domains/Attendance/Services/BulkAttendanceAction.php
-
-		-
-			rawMessage: 'Parameter #2 ...$values of function sprintf expects bool|float|int|string|null, mixed given.'
-			identifier: argument.type
-			count: 1
+			count: 2
 			path: app/Domains/Attendance/Services/BulkAttendanceAction.php
 
 		-
@@ -527,18 +317,6 @@ parameters:
 			identifier: nullsafe.neverNull
 			count: 1
 			path: app/Domains/Attendance/Services/BulkAttendanceAction.php
-
-		-
-			rawMessage: Using nullsafe property access "?->code" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Domains/Attendance/Services/BulkAttendanceAction.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$id.
-			identifier: property.notFound
-			count: 1
-			path: app/Domains/Attendance/Services/OpenAttendanceSession.php
 
 		-
 			rawMessage: Cannot cast mixed to int.
@@ -757,12 +535,6 @@ parameters:
 			path: app/Domains/Finance/Services/PostJournalEntry.php
 
 		-
-			rawMessage: 'Return type of call to method Illuminate\Support\Collection<int,array<string, mixed>>::all() contains unresolvable type.'
-			identifier: method.unresolvableReturnType
-			count: 1
-			path: app/Domains/Finance/Services/PostJournalEntry.php
-
-		-
 			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$paid_minor.
 			identifier: property.notFound
 			count: 2
@@ -805,19 +577,7 @@ parameters:
 			path: app/Domains/Finance/Services/WriteFeeStructure.php
 
 		-
-			rawMessage: 'Access to an undefined property Illuminate\Database\Eloquent\Model&object{pivot: Illuminate\Database\Eloquent\Relations\Pivot}::$full_name.'
-			identifier: property.notFound
-			count: 1
-			path: app/Domains/Finance/Services/WriteInvoice.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$label.
-			identifier: property.notFound
-			count: 1
-			path: app/Domains/Finance/Services/WriteInvoice.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$name.
+			rawMessage: Access to an undefined property App\Models\AcademicYear::$name.
 			identifier: property.notFound
 			count: 1
 			path: app/Domains/Finance/Services/WriteInvoice.php
@@ -831,7 +591,13 @@ parameters:
 		-
 			rawMessage: Cannot cast mixed to string.
 			identifier: cast.string
-			count: 3
+			count: 1
+			path: app/Domains/Finance/Services/WriteInvoice.php
+
+		-
+			rawMessage: Expression on left side of ?? is not nullable.
+			identifier: nullCoalesce.expr
+			count: 1
 			path: app/Domains/Finance/Services/WriteInvoice.php
 
 		-
@@ -878,12 +644,6 @@ parameters:
 
 		-
 			rawMessage: Using nullsafe property access "?->full_name" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Domains/Finance/Services/WriteInvoice.php
-
-		-
-			rawMessage: Using nullsafe property access "?->label" on left side of ?? is unnecessary. Use -> instead.
 			identifier: nullsafe.neverNull
 			count: 1
 			path: app/Domains/Finance/Services/WriteInvoice.php
@@ -1291,6 +1051,18 @@ parameters:
 			path: app/Domains/Insights/Services/InstitutionSnapshotReader.php
 
 		-
+			rawMessage: 'Parameter #2 $win of method App\Domains\Insights\Services\InstitutionSnapshotReader::attendanceRates() expects array{from: Carbon\CarbonImmutable, to: Carbon\CarbonImmutable, prev_from: Carbon\CarbonImmutable, prev_to: Carbon\CarbonImmutable}, array{period: App\Enums\InsightPeriod, from: Carbon\CarbonImmutable, to: Carbon\CarbonImmutable, prev_from: Carbon\CarbonImmutable, prev_to: Carbon\CarbonImmutable} given.'
+			identifier: argument.type
+			count: 1
+			path: app/Domains/Insights/Services/InstitutionSnapshotReader.php
+
+		-
+			rawMessage: 'Parameter #2 $win of method App\Domains\Insights\Services\InstitutionSnapshotReader::collectionsTotals() expects array{from: Carbon\CarbonImmutable, to: Carbon\CarbonImmutable, prev_from: Carbon\CarbonImmutable, prev_to: Carbon\CarbonImmutable}, array{period: App\Enums\InsightPeriod, from: Carbon\CarbonImmutable, to: Carbon\CarbonImmutable, prev_from: Carbon\CarbonImmutable, prev_to: Carbon\CarbonImmutable} given.'
+			identifier: argument.type
+			count: 1
+			path: app/Domains/Insights/Services/InstitutionSnapshotReader.php
+
+		-
 			rawMessage: 'Parameter #2 ...$values of function sprintf expects bool|float|int|string|null, mixed given.'
 			identifier: argument.type
 			count: 1
@@ -1393,26 +1165,14 @@ parameters:
 			path: app/Domains/Institution/Services/TransitionAcademicYear.php
 
 		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$label.
-			identifier: property.notFound
-			count: 1
-			path: app/Domains/Institution/Services/TransitionTerm.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$status.
-			identifier: property.notFound
-			count: 1
-			path: app/Domains/Institution/Services/TransitionTerm.php
-
-		-
 			rawMessage: Anonymous function should return App\Models\Term but returns App\Models\Term|null.
 			identifier: return.type
 			count: 1
 			path: app/Domains/Institution/Services/TransitionTerm.php
 
 		-
-			rawMessage: 'Part $year->label (mixed) of encapsed string cannot be cast to string.'
-			identifier: encapsedStringPart.nonString
+			rawMessage: 'Strict comparison using !== between App\Models\AcademicYear and null will always evaluate to true.'
+			identifier: notIdentical.alwaysTrue
 			count: 1
 			path: app/Domains/Institution/Services/TransitionTerm.php
 
@@ -2611,7 +2371,7 @@ parameters:
 			path: app/Http/Requests/Api/V1/Admissions/RecordScoresRequest.php
 
 		-
-			rawMessage: 'Method App\Http\Requests\Api\V1\Admissions\RecordScoresRequest::scores() should return array{assessment_score?: int|null, interview_score?: int|null} but returns array<''assessment_score''|''interview_score'', mixed>.'
+			rawMessage: 'Method App\Http\Requests\Api\V1\Admissions\RecordScoresRequest::scores() should return array{assessment_score?: int|null, interview_score?: int|null} but returns array{assessment_score?: mixed, interview_score?: mixed}.'
 			identifier: return.type
 			count: 1
 			path: app/Http/Requests/Api/V1/Admissions/RecordScoresRequest.php
@@ -3283,27 +3043,9 @@ parameters:
 			path: app/Http/Requests/Api/V1/VerifyEmailRequest.php
 
 		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$code.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/Academics/CourseSectionResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$full_name.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/Academics/CourseSectionResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$label.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/Academics/CourseSectionResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$name.
-			identifier: property.notFound
-			count: 2
+			rawMessage: Expression on left side of ?? is not nullable.
+			identifier: nullCoalesce.expr
+			count: 5
 			path: app/Http/Resources/Api/V1/Academics/CourseSectionResource.php
 
 		-
@@ -3313,68 +3055,14 @@ parameters:
 			path: app/Http/Resources/Api/V1/Academics/CourseSectionResource.php
 
 		-
-			rawMessage: Using nullsafe property access "?->code" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Http/Resources/Api/V1/Academics/CourseSectionResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->full_name" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Http/Resources/Api/V1/Academics/CourseSectionResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->label" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Http/Resources/Api/V1/Academics/CourseSectionResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->name" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 2
-			path: app/Http/Resources/Api/V1/Academics/CourseSectionResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$avatar_initials.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/Academics/GradebookEntryResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$full_name.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/Academics/GradebookEntryResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$name.
-			identifier: property.notFound
-			count: 1
+			rawMessage: Expression on left side of ?? is not nullable.
+			identifier: nullCoalesce.expr
+			count: 3
 			path: app/Http/Resources/Api/V1/Academics/GradebookEntryResource.php
 
 		-
 			rawMessage: 'Method App\Http\Resources\Api\V1\Academics\GradebookEntryResource::toArray() return type has no value type specified in iterable type array.'
 			identifier: missingType.iterableValue
-			count: 1
-			path: app/Http/Resources/Api/V1/Academics/GradebookEntryResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->avatar_initials" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Http/Resources/Api/V1/Academics/GradebookEntryResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->full_name" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Http/Resources/Api/V1/Academics/GradebookEntryResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->name" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
 			count: 1
 			path: app/Http/Resources/Api/V1/Academics/GradebookEntryResource.php
 
@@ -3457,32 +3145,14 @@ parameters:
 			path: app/Http/Resources/Api/V1/Academics/TimetableSlotResource.php
 
 		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$label.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/Admissions/ApplicationResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$name.
-			identifier: property.notFound
-			count: 1
+			rawMessage: Expression on left side of ?? is not nullable.
+			identifier: nullCoalesce.expr
+			count: 2
 			path: app/Http/Resources/Api/V1/Admissions/ApplicationResource.php
 
 		-
 			rawMessage: 'Method App\Http\Resources\Api\V1\Admissions\ApplicationResource::toArray() return type has no value type specified in iterable type array.'
 			identifier: missingType.iterableValue
-			count: 1
-			path: app/Http/Resources/Api/V1/Admissions/ApplicationResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->label" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Http/Resources/Api/V1/Admissions/ApplicationResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->name" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
 			count: 1
 			path: app/Http/Resources/Api/V1/Admissions/ApplicationResource.php
 
@@ -3535,69 +3205,15 @@ parameters:
 			path: app/Http/Resources/Api/V1/Assessments/ExamPeriodResource.php
 
 		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$grade_label.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$name.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$section_label.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$subject.
-			identifier: property.notFound
-			count: 2
-			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$teacher.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
-
-		-
-			rawMessage: 'Call to an undefined method Illuminate\Database\Eloquent\Relations\HasMany::graded().'
-			identifier: method.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
-
-		-
-			rawMessage: Cannot access property $code on mixed.
-			identifier: property.nonObject
-			count: 1
-			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
-
-		-
-			rawMessage: Cannot access property $full_name on mixed.
-			identifier: property.nonObject
-			count: 1
-			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
-
-		-
-			rawMessage: Cannot access property $name on mixed.
-			identifier: property.nonObject
-			count: 1
-			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
-
-		-
-			rawMessage: 'Cannot call method count() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
-
-		-
 			rawMessage: Cannot cast mixed to int.
 			identifier: cast.int
 			count: 1
+			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
+
+		-
+			rawMessage: Expression on left side of ?? is not nullable.
+			identifier: nullCoalesce.expr
+			count: 6
 			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
 
 		-
@@ -3608,36 +3224,6 @@ parameters:
 
 		-
 			rawMessage: Using nullsafe method call on non-nullable type Illuminate\Support\Carbon. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->code" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->full_name" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->grade_label" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->name" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 2
-			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->section_label" on left side of ?? is unnecessary. Use -> instead.
 			identifier: nullsafe.neverNull
 			count: 1
 			path: app/Http/Resources/Api/V1/Assessments/ExamResource.php
@@ -3763,57 +3349,9 @@ parameters:
 			path: app/Http/Resources/Api/V1/Attendance/AttendanceMarkResource.php
 
 		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$grade_label.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/Attendance/AttendanceSessionResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$section_label.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/Attendance/AttendanceSessionResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$subject.
-			identifier: property.notFound
-			count: 2
-			path: app/Http/Resources/Api/V1/Attendance/AttendanceSessionResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$teacher.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/Attendance/AttendanceSessionResource.php
-
-		-
-			rawMessage: Binary operation "." between mixed and ' — ' results in an error.
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/Http/Resources/Api/V1/Attendance/AttendanceSessionResource.php
-
-		-
-			rawMessage: Binary operation "." between non-falsy-string and mixed results in an error.
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/Http/Resources/Api/V1/Attendance/AttendanceSessionResource.php
-
-		-
-			rawMessage: Cannot access property $code on mixed.
-			identifier: property.nonObject
-			count: 1
-			path: app/Http/Resources/Api/V1/Attendance/AttendanceSessionResource.php
-
-		-
-			rawMessage: Cannot access property $full_name on mixed.
-			identifier: property.nonObject
-			count: 1
-			path: app/Http/Resources/Api/V1/Attendance/AttendanceSessionResource.php
-
-		-
-			rawMessage: Cannot access property $name on mixed.
-			identifier: property.nonObject
-			count: 1
+			rawMessage: Expression on left side of ?? is not nullable.
+			identifier: nullCoalesce.expr
+			count: 5
 			path: app/Http/Resources/Api/V1/Attendance/AttendanceSessionResource.php
 
 		-
@@ -3824,36 +3362,6 @@ parameters:
 
 		-
 			rawMessage: Using nullsafe method call on non-nullable type Illuminate\Support\Carbon. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Http/Resources/Api/V1/Attendance/AttendanceSessionResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->code" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Http/Resources/Api/V1/Attendance/AttendanceSessionResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->full_name" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Http/Resources/Api/V1/Attendance/AttendanceSessionResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->grade_label" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Http/Resources/Api/V1/Attendance/AttendanceSessionResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->name" on left side of ?? is unnecessary. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Http/Resources/Api/V1/Attendance/AttendanceSessionResource.php
-
-		-
-			rawMessage: Using nullsafe property access "?->section_label" on left side of ?? is unnecessary. Use -> instead.
 			identifier: nullsafe.neverNull
 			count: 1
 			path: app/Http/Resources/Api/V1/Attendance/AttendanceSessionResource.php
@@ -4111,30 +3619,6 @@ parameters:
 			path: app/Http/Resources/Api/V1/Institution/CalendarEventResource.php
 
 		-
-			rawMessage: 'Call to an undefined method Illuminate\Database\Eloquent\Relations\HasMany::active().'
-			identifier: method.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/Institution/CampusResource.php
-
-		-
-			rawMessage: 'Call to an undefined method Illuminate\Database\Eloquent\Relations\HasMany::enrolled().'
-			identifier: method.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/Institution/CampusResource.php
-
-		-
-			rawMessage: 'Cannot call method count() on mixed.'
-			identifier: method.nonObject
-			count: 2
-			path: app/Http/Resources/Api/V1/Institution/CampusResource.php
-
-		-
-			rawMessage: Cannot cast mixed to int.
-			identifier: cast.int
-			count: 2
-			path: app/Http/Resources/Api/V1/Institution/CampusResource.php
-
-		-
 			rawMessage: 'Method App\Http\Resources\Api\V1\Institution\CampusResource::toArray() return type has no value type specified in iterable type array.'
 			identifier: missingType.iterableValue
 			count: 1
@@ -4153,25 +3637,7 @@ parameters:
 			path: app/Http/Resources/Api/V1/Institution/TermResource.php
 
 		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$full_name.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/People/GuardianResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$grade_label.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/People/GuardianResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$id.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/People/GuardianResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$pivot.
+			rawMessage: Access to an undefined property App\Models\Student::$pivot.
 			identifier: property.notFound
 			count: 2
 			path: app/Http/Resources/Api/V1/People/GuardianResource.php
@@ -4201,24 +3667,6 @@ parameters:
 			path: app/Http/Resources/Api/V1/People/GuardianResource.php
 
 		-
-			rawMessage: 'Parameter #1 $callback of method Illuminate\Database\Eloquent\Collection<int,Illuminate\Database\Eloquent\Model>::map() contains unresolvable type.'
-			identifier: argument.unresolvableType
-			count: 1
-			path: app/Http/Resources/Api/V1/People/GuardianResource.php
-
-		-
-			rawMessage: 'Return type of call to method Illuminate\Database\Eloquent\Collection<int,Illuminate\Database\Eloquent\Model>::map() contains unresolvable type.'
-			identifier: method.unresolvableReturnType
-			count: 1
-			path: app/Http/Resources/Api/V1/People/GuardianResource.php
-
-		-
-			rawMessage: 'Return type of call to method Illuminate\Support\Collection<int,array<string, mixed>>::values() contains unresolvable type.'
-			identifier: method.unresolvableReturnType
-			count: 1
-			path: app/Http/Resources/Api/V1/People/GuardianResource.php
-
-		-
 			rawMessage: Cannot cast mixed to string.
 			identifier: cast.string
 			count: 1
@@ -4229,12 +3677,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: app/Http/Resources/Api/V1/People/PersonDocumentResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$name.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/People/StaffMemberResource.php
 
 		-
 			rawMessage: 'Cannot call method toDateString() on mixed.'
@@ -4255,69 +3697,15 @@ parameters:
 			path: app/Http/Resources/Api/V1/People/StaffMemberResource.php
 
 		-
-			rawMessage: Access to an undefined property App\Http\Resources\Api\V1\People\StudentResource::$attendance_present_30d.
-			identifier: property.notFound
+			rawMessage: Using nullsafe property access on non-nullable type App\Models\Campus. Use -> instead.
+			identifier: nullsafe.neverNull
 			count: 1
-			path: app/Http/Resources/Api/V1/People/StudentResource.php
-
-		-
-			rawMessage: Access to an undefined property App\Http\Resources\Api\V1\People\StudentResource::$attendance_total_30d.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/People/StudentResource.php
-
-		-
-			rawMessage: Access to an undefined property App\Http\Resources\Api\V1\People\StudentResource::$invoices_sum_balance_minor.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/People/StudentResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$full_name.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/People/StudentResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$id.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/People/StudentResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$name.
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Resources/Api/V1/People/StudentResource.php
-
-		-
-			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Model::$pivot.
-			identifier: property.notFound
-			count: 2
-			path: app/Http/Resources/Api/V1/People/StudentResource.php
-
-		-
-			rawMessage: Cannot access property $is_primary on mixed.
-			identifier: property.nonObject
-			count: 1
-			path: app/Http/Resources/Api/V1/People/StudentResource.php
-
-		-
-			rawMessage: Cannot access property $relationship on mixed.
-			identifier: property.nonObject
-			count: 1
-			path: app/Http/Resources/Api/V1/People/StudentResource.php
+			path: app/Http/Resources/Api/V1/People/StaffMemberResource.php
 
 		-
 			rawMessage: 'Cannot call method toDateString() on mixed.'
 			identifier: method.nonObject
 			count: 2
-			path: app/Http/Resources/Api/V1/People/StudentResource.php
-
-		-
-			rawMessage: Cannot cast mixed to int.
-			identifier: cast.int
-			count: 3
 			path: app/Http/Resources/Api/V1/People/StudentResource.php
 
 		-
@@ -4333,20 +3721,20 @@ parameters:
 			path: app/Http/Resources/Api/V1/People/StudentResource.php
 
 		-
-			rawMessage: 'Parameter #1 $callback of method Illuminate\Database\Eloquent\Collection<int,Illuminate\Database\Eloquent\Model>::map() contains unresolvable type.'
-			identifier: argument.unresolvableType
+			rawMessage: 'Strict comparison using !== between int and null will always evaluate to true.'
+			identifier: notIdentical.alwaysTrue
+			count: 2
+			path: app/Http/Resources/Api/V1/People/StudentResource.php
+
+		-
+			rawMessage: Unreachable statement - code above always terminates.
+			identifier: deadCode.unreachable
 			count: 1
 			path: app/Http/Resources/Api/V1/People/StudentResource.php
 
 		-
-			rawMessage: 'Return type of call to method Illuminate\Database\Eloquent\Collection<int,Illuminate\Database\Eloquent\Model>::map() contains unresolvable type.'
-			identifier: method.unresolvableReturnType
-			count: 1
-			path: app/Http/Resources/Api/V1/People/StudentResource.php
-
-		-
-			rawMessage: 'Return type of call to method Illuminate\Support\Collection<int,array<string, mixed>>::values() contains unresolvable type.'
-			identifier: method.unresolvableReturnType
+			rawMessage: Using nullsafe property access on non-nullable type App\Models\Campus. Use -> instead.
+			identifier: nullsafe.neverNull
 			count: 1
 			path: app/Http/Resources/Api/V1/People/StudentResource.php
 
@@ -4375,21 +3763,9 @@ parameters:
 			path: app/Listeners/RecordBusinessEvent.php
 
 		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/AcademicYear.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/AcademicYear.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/AcademicYear.php
 
 		-
@@ -4423,27 +3799,9 @@ parameters:
 			path: app/Models/AcademicYear.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/AcademicYear.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/Account.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/Account.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/Account.php
 
 		-
@@ -4471,27 +3829,9 @@ parameters:
 			path: app/Models/Account.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/Account.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/Announcement.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/Announcement.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/Announcement.php
 
 		-
@@ -4525,61 +3865,13 @@ parameters:
 			path: app/Models/Announcement.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/Announcement.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/Application.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
 			path: app/Models/Application.php
 
 		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/Application.php
-
-		-
-			rawMessage: 'Method App\Models\Application::academicYear() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Application.php
-
-		-
 			rawMessage: 'Method App\Models\Application::atStage() has parameter $query with generic class Illuminate\Database\Eloquent\Builder but does not specify its types: TModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Application.php
-
-		-
-			rawMessage: 'Method App\Models\Application::campus() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Application.php
-
-		-
-			rawMessage: 'Method App\Models\Application::currentOffer() return type with generic class Illuminate\Database\Eloquent\Relations\HasOne does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Application.php
-
-		-
-			rawMessage: 'Method App\Models\Application::guardian() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Application.php
-
-		-
-			rawMessage: 'Method App\Models\Application::offers() return type with generic class Illuminate\Database\Eloquent\Relations\HasMany does not specify its types: TRelatedModel, TDeclaringModel'
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/Application.php
@@ -4591,45 +3883,15 @@ parameters:
 			path: app/Models/Application.php
 
 		-
-			rawMessage: 'Method App\Models\Application::student() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Application.php
-
-		-
 			rawMessage: 'Method App\Models\Application::tenant() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/Application.php
 
 		-
-			rawMessage: 'Method App\Models\Application::timeline() return type with generic class Illuminate\Database\Eloquent\Relations\HasMany does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Application.php
-
-		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/Application.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/ApplicationOffer.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/ApplicationOffer.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/ApplicationOffer.php
 
 		-
@@ -4645,27 +3907,9 @@ parameters:
 			path: app/Models/ApplicationOffer.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/ApplicationOffer.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/ApplicationStageEvent.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/ApplicationStageEvent.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/ApplicationStageEvent.php
 
 		-
@@ -4681,27 +3925,9 @@ parameters:
 			path: app/Models/ApplicationStageEvent.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/ApplicationStageEvent.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/AttendanceMark.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/AttendanceMark.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/AttendanceMark.php
 
 		-
@@ -4729,33 +3955,9 @@ parameters:
 			path: app/Models/AttendanceMark.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/AttendanceMark.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/AttendanceSession.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/AttendanceSession.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/AttendanceSession.php
-
-		-
-			rawMessage: 'Method App\Models\AttendanceSession::courseSection() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
 			path: app/Models/AttendanceSession.php
 
 		-
@@ -4766,12 +3968,6 @@ parameters:
 
 		-
 			rawMessage: 'Method App\Models\AttendanceSession::forSection() has parameter $query with generic class Illuminate\Database\Eloquent\Builder but does not specify its types: TModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/AttendanceSession.php
-
-		-
-			rawMessage: 'Method App\Models\AttendanceSession::marks() return type with generic class Illuminate\Database\Eloquent\Relations\HasMany does not specify its types: TRelatedModel, TDeclaringModel'
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/AttendanceSession.php
@@ -4793,24 +3989,6 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/AttendanceSession.php
-
-		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/AttendanceSession.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/AuditEvent.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/AuditEvent.php
 
 		-
 			rawMessage: 'Method App\Models\AuditEvent::actor() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
@@ -4837,27 +4015,9 @@ parameters:
 			path: app/Models/AuditEvent.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/AuditEvent.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/Broadcast.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/Broadcast.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/Broadcast.php
 
 		-
@@ -4879,39 +4039,9 @@ parameters:
 			path: app/Models/Broadcast.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/Broadcast.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/CalendarEvent.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/CalendarEvent.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/CalendarEvent.php
-
-		-
-			rawMessage: 'Method App\Models\CalendarEvent::academicYear() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/CalendarEvent.php
-
-		-
-			rawMessage: 'Method App\Models\CalendarEvent::campus() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
 			path: app/Models/CalendarEvent.php
 
 		-
@@ -4933,33 +4063,9 @@ parameters:
 			path: app/Models/CalendarEvent.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/CalendarEvent.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/Campus.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/Campus.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/Campus.php
-
-		-
-			rawMessage: 'Method App\Models\Campus::calendarEvents() return type with generic class Illuminate\Database\Eloquent\Relations\HasMany does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
 			path: app/Models/Campus.php
 
 		-
@@ -4975,45 +4081,15 @@ parameters:
 			path: app/Models/Campus.php
 
 		-
-			rawMessage: 'Method App\Models\Campus::staffMembers() return type with generic class Illuminate\Database\Eloquent\Relations\HasMany does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Campus.php
-
-		-
-			rawMessage: 'Method App\Models\Campus::students() return type with generic class Illuminate\Database\Eloquent\Relations\HasMany does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Campus.php
-
-		-
 			rawMessage: 'Method App\Models\Campus::tenant() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/Campus.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/Campus.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/CourseEnrollment.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/CourseEnrollment.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/CourseEnrollment.php
 
 		-
@@ -5023,49 +4099,13 @@ parameters:
 			path: app/Models/CourseEnrollment.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/CourseEnrollment.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/CourseSection.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
 			path: app/Models/CourseSection.php
 
 		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/CourseSection.php
-
-		-
-			rawMessage: 'Method App\Models\CourseSection::academicYear() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/CourseSection.php
-
-		-
-			rawMessage: 'Method App\Models\CourseSection::campus() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/CourseSection.php
-
-		-
 			rawMessage: 'Method App\Models\CourseSection::forYear() has parameter $query with generic class Illuminate\Database\Eloquent\Builder but does not specify its types: TModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/CourseSection.php
-
-		-
-			rawMessage: 'Method App\Models\CourseSection::gradebookEntries() return type with generic class Illuminate\Database\Eloquent\Relations\HasMany does not specify its types: TRelatedModel, TDeclaringModel'
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/CourseSection.php
@@ -5077,63 +4117,15 @@ parameters:
 			path: app/Models/CourseSection.php
 
 		-
-			rawMessage: 'Method App\Models\CourseSection::students() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsToMany does not specify its types: TRelatedModel, TDeclaringModel, TPivotModel, TAccessor (2-4 required)'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/CourseSection.php
-
-		-
-			rawMessage: 'Method App\Models\CourseSection::subject() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/CourseSection.php
-
-		-
-			rawMessage: 'Method App\Models\CourseSection::teacher() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/CourseSection.php
-
-		-
 			rawMessage: 'Method App\Models\CourseSection::tenant() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/CourseSection.php
 
 		-
-			rawMessage: 'Method App\Models\CourseSection::timetableSlots() return type with generic class Illuminate\Database\Eloquent\Relations\HasMany does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/CourseSection.php
-
-		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/CourseSection.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/Exam.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/Exam.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/Exam.php
-
-		-
-			rawMessage: 'Method App\Models\Exam::courseSection() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
 			path: app/Models/Exam.php
 
 		-
@@ -5149,19 +4141,7 @@ parameters:
 			path: app/Models/Exam.php
 
 		-
-			rawMessage: 'Method App\Models\Exam::period() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Exam.php
-
-		-
 			rawMessage: 'Method App\Models\Exam::published() has parameter $query with generic class Illuminate\Database\Eloquent\Builder but does not specify its types: TModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Exam.php
-
-		-
-			rawMessage: 'Method App\Models\Exam::results() return type with generic class Illuminate\Database\Eloquent\Relations\HasMany does not specify its types: TRelatedModel, TDeclaringModel'
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/Exam.php
@@ -5173,27 +4153,9 @@ parameters:
 			path: app/Models/Exam.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/Exam.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/ExamPeriod.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/ExamPeriod.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/ExamPeriod.php
 
 		-
@@ -5233,27 +4195,9 @@ parameters:
 			path: app/Models/ExamPeriod.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/ExamPeriod.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/ExamResult.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/ExamResult.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/ExamResult.php
 
 		-
@@ -5287,27 +4231,9 @@ parameters:
 			path: app/Models/ExamResult.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/ExamResult.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/FeeStructure.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/FeeStructure.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/FeeStructure.php
 
 		-
@@ -5329,33 +4255,9 @@ parameters:
 			path: app/Models/FeeStructure.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/FeeStructure.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/GradebookEntry.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/GradebookEntry.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/GradebookEntry.php
-
-		-
-			rawMessage: 'Method App\Models\GradebookEntry::courseSection() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
 			path: app/Models/GradebookEntry.php
 
 		-
@@ -5371,45 +4273,15 @@ parameters:
 			path: app/Models/GradebookEntry.php
 
 		-
-			rawMessage: 'Method App\Models\GradebookEntry::student() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/GradebookEntry.php
-
-		-
 			rawMessage: 'Method App\Models\GradebookEntry::tenant() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/GradebookEntry.php
 
 		-
-			rawMessage: 'Method App\Models\GradebookEntry::term() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/GradebookEntry.php
-
-		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/GradebookEntry.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/Guardian.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/Guardian.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/Guardian.php
 
 		-
@@ -5419,14 +4291,8 @@ parameters:
 			path: app/Models/Guardian.php
 
 		-
-			rawMessage: 'Method App\Models\Guardian::documents() return type with generic class Illuminate\Database\Eloquent\Relations\MorphMany does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Guardian.php
-
-		-
-			rawMessage: 'Method App\Models\Guardian::students() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsToMany does not specify its types: TRelatedModel, TDeclaringModel, TPivotModel, TAccessor (2-4 required)'
-			identifier: missingType.generics
+			rawMessage: 'Method App\Models\Guardian::students() should return Illuminate\Database\Eloquent\Relations\BelongsToMany<App\Models\Student, $this(App\Models\Guardian), Illuminate\Database\Eloquent\Relations\Pivot, ''pivot''> but returns Illuminate\Database\Eloquent\Relations\BelongsToMany<App\Models\Student, $this(App\Models\Guardian), App\Models\StudentGuardian, ''pivot''>.'
+			identifier: return.type
 			count: 1
 			path: app/Models/Guardian.php
 
@@ -5437,45 +4303,9 @@ parameters:
 			path: app/Models/Guardian.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/Guardian.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/IdempotencyKey.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/IdempotencyKey.php
-
-		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/IdempotencyKey.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/InstitutionProfile.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/InstitutionProfile.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/InstitutionProfile.php
 
 		-
@@ -5483,24 +4313,6 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/InstitutionProfile.php
-
-		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/InstitutionProfile.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/Invitation.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/Invitation.php
 
 		-
 			rawMessage: 'Method App\Models\Invitation::invitedBy() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
@@ -5521,20 +4333,8 @@ parameters:
 			path: app/Models/Invitation.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/Invitation.php
-
-		-
 			rawMessage: 'Call to an undefined method Illuminate\Database\Eloquent\Builder::outstanding().'
 			identifier: method.notFound
-			count: 1
-			path: app/Models/Invoice.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
 			count: 1
 			path: app/Models/Invoice.php
 
@@ -5545,26 +4345,8 @@ parameters:
 			path: app/Models/Invoice.php
 
 		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/Invoice.php
-
-		-
 			rawMessage: 'Cannot call method whereDate() on mixed.'
 			identifier: method.nonObject
-			count: 1
-			path: app/Models/Invoice.php
-
-		-
-			rawMessage: 'Method App\Models\Invoice::academicYear() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Invoice.php
-
-		-
-			rawMessage: 'Method App\Models\Invoice::lines() return type with generic class Illuminate\Database\Eloquent\Relations\HasMany does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
 			count: 1
 			path: app/Models/Invoice.php
 
@@ -5581,19 +4363,7 @@ parameters:
 			path: app/Models/Invoice.php
 
 		-
-			rawMessage: 'Method App\Models\Invoice::payments() return type with generic class Illuminate\Database\Eloquent\Relations\HasMany does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Invoice.php
-
-		-
 			rawMessage: 'Method App\Models\Invoice::status() has parameter $query with generic class Illuminate\Database\Eloquent\Builder but does not specify its types: TModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Invoice.php
-
-		-
-			rawMessage: 'Method App\Models\Invoice::student() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/Invoice.php
@@ -5605,33 +4375,9 @@ parameters:
 			path: app/Models/Invoice.php
 
 		-
-			rawMessage: 'Method App\Models\Invoice::term() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Invoice.php
-
-		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/Invoice.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/InvoiceLine.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/InvoiceLine.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/InvoiceLine.php
 
 		-
@@ -5653,27 +4399,9 @@ parameters:
 			path: app/Models/InvoiceLine.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/InvoiceLine.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/JournalEntry.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/JournalEntry.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/JournalEntry.php
 
 		-
@@ -5701,27 +4429,9 @@ parameters:
 			path: app/Models/JournalEntry.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/JournalEntry.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/LedgerPosting.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/LedgerPosting.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/LedgerPosting.php
 
 		-
@@ -5761,27 +4471,9 @@ parameters:
 			path: app/Models/LedgerPosting.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/LedgerPosting.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/MessageThread.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/MessageThread.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/MessageThread.php
 
 		-
@@ -5815,27 +4507,9 @@ parameters:
 			path: app/Models/MessageThread.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/MessageThread.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/NotificationPreference.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/NotificationPreference.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/NotificationPreference.php
 
 		-
@@ -5845,27 +4519,9 @@ parameters:
 			path: app/Models/NotificationPreference.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/NotificationPreference.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/Payment.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/Payment.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/Payment.php
 
 		-
@@ -5893,27 +4549,9 @@ parameters:
 			path: app/Models/Payment.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/Payment.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/PersonDocument.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/PersonDocument.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/PersonDocument.php
 
 		-
@@ -5927,24 +4565,6 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/PersonDocument.php
-
-		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/PersonDocument.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/Role.php
 
 		-
 			rawMessage: 'Method App\Models\Role::forTenant() has parameter $query with generic class Illuminate\Database\Eloquent\Builder but does not specify its types: TModel'
@@ -5971,22 +4591,10 @@ parameters:
 			path: app/Models/Role.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/Role.php
-
-		-
 			rawMessage: 'Class App\Models\Scopes\TenantScope implements generic interface Illuminate\Database\Eloquent\Scope but does not specify its types: TModel'
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/Scopes/TenantScope.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/StaffMember.php
 
 		-
 			rawMessage: Cannot access property $tenant_id on mixed.
@@ -5995,25 +4603,7 @@ parameters:
 			path: app/Models/StaffMember.php
 
 		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/StaffMember.php
-
-		-
 			rawMessage: 'Method App\Models\StaffMember::active() has parameter $query with generic class Illuminate\Database\Eloquent\Builder but does not specify its types: TModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/StaffMember.php
-
-		-
-			rawMessage: 'Method App\Models\StaffMember::campus() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/StaffMember.php
-
-		-
-			rawMessage: 'Method App\Models\StaffMember::documents() return type with generic class Illuminate\Database\Eloquent\Relations\MorphMany does not specify its types: TRelatedModel, TDeclaringModel'
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/StaffMember.php
@@ -6031,73 +4621,13 @@ parameters:
 			path: app/Models/StaffMember.php
 
 		-
-			rawMessage: 'Method App\Models\StaffMember::user() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/StaffMember.php
-
-		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/StaffMember.php
-
-		-
-			rawMessage: Access to an undefined property App\Models\Student::$attendance_present_30d.
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Student.php
-
-		-
-			rawMessage: Access to an undefined property App\Models\Student::$attendance_total_30d.
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Student.php
-
-		-
-			rawMessage: Access to an undefined property App\Models\Student::$invoices_sum_balance_minor.
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Student.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/Student.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
 			path: app/Models/Student.php
 
 		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/Student.php
-
-		-
 			rawMessage: 'Method App\Models\Student::atCampus() has parameter $query with generic class Illuminate\Database\Eloquent\Builder but does not specify its types: TModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Student.php
-
-		-
-			rawMessage: 'Method App\Models\Student::attendanceMarks() return type with generic class Illuminate\Database\Eloquent\Relations\HasMany does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Student.php
-
-		-
-			rawMessage: 'Method App\Models\Student::campus() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Student.php
-
-		-
-			rawMessage: 'Method App\Models\Student::documents() return type with generic class Illuminate\Database\Eloquent\Relations\MorphMany does not specify its types: TRelatedModel, TDeclaringModel'
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/Student.php
@@ -6109,14 +4639,8 @@ parameters:
 			path: app/Models/Student.php
 
 		-
-			rawMessage: 'Method App\Models\Student::guardians() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsToMany does not specify its types: TRelatedModel, TDeclaringModel, TPivotModel, TAccessor (2-4 required)'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Student.php
-
-		-
-			rawMessage: 'Method App\Models\Student::invoices() return type with generic class Illuminate\Database\Eloquent\Relations\HasMany does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
+			rawMessage: 'Method App\Models\Student::guardians() should return Illuminate\Database\Eloquent\Relations\BelongsToMany<App\Models\Guardian, $this(App\Models\Student), Illuminate\Database\Eloquent\Relations\Pivot, ''pivot''> but returns Illuminate\Database\Eloquent\Relations\BelongsToMany<App\Models\Guardian, $this(App\Models\Student), App\Models\StudentGuardian, ''pivot''>.'
+			identifier: return.type
 			count: 1
 			path: app/Models/Student.php
 
@@ -6133,55 +4657,13 @@ parameters:
 			path: app/Models/Student.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/Student.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/StudentGuardian.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/StudentGuardian.php
-
-		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/StudentGuardian.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/Subject.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
 			path: app/Models/Subject.php
 
 		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/Subject.php
-
-		-
 			rawMessage: 'Method App\Models\Subject::core() has parameter $query with generic class Illuminate\Database\Eloquent\Builder but does not specify its types: TModel'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Subject.php
-
-		-
-			rawMessage: 'Method App\Models\Subject::courseSections() return type with generic class Illuminate\Database\Eloquent\Relations\HasMany does not specify its types: TRelatedModel, TDeclaringModel'
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/Subject.php
@@ -6197,24 +4679,6 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/Subject.php
-
-		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/Subject.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/Tenant.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/Tenant.php
 
 		-
 			rawMessage: 'Method App\Models\Tenant::active() has parameter $query with generic class Illuminate\Database\Eloquent\Builder but does not specify its types: TModel'
@@ -6253,24 +4717,6 @@ parameters:
 			path: app/Models/Tenant.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/Tenant.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/TenantMembership.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/TenantMembership.php
-
-		-
 			rawMessage: 'Method App\Models\TenantMembership::tenant() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
 			identifier: missingType.generics
 			count: 1
@@ -6283,33 +4729,9 @@ parameters:
 			path: app/Models/TenantMembership.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/TenantMembership.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/Term.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/Term.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/Term.php
-
-		-
-			rawMessage: 'Method App\Models\Term::academicYear() return type with generic class Illuminate\Database\Eloquent\Relations\BelongsTo does not specify its types: TRelatedModel, TDeclaringModel'
-			identifier: missingType.generics
-			count: 1
 			path: app/Models/Term.php
 
 		-
@@ -6319,27 +4741,9 @@ parameters:
 			path: app/Models/Term.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/Term.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/ThreadMessage.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/ThreadMessage.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/ThreadMessage.php
 
 		-
@@ -6355,27 +4759,9 @@ parameters:
 			path: app/Models/ThreadMessage.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/ThreadMessage.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/ThreadParticipant.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/ThreadParticipant.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/ThreadParticipant.php
 
 		-
@@ -6397,27 +4783,9 @@ parameters:
 			path: app/Models/ThreadParticipant.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/ThreadParticipant.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/TimetableSlot.php
-
-		-
 			rawMessage: Cannot access property $tenant_id on mixed.
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/TimetableSlot.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/TimetableSlot.php
 
 		-
@@ -6439,26 +4807,8 @@ parameters:
 			path: app/Models/TimetableSlot.php
 
 		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
-			path: app/Models/TimetableSlot.php
-
-		-
 			rawMessage: Access to an undefined property Illuminate\Database\Eloquent\Relations\Pivot::$role_ids.
 			identifier: property.notFound
-			count: 1
-			path: app/Models/User.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Models/User.php
-
-		-
-			rawMessage: 'Cannot call method getKeyName() on mixed.'
-			identifier: method.nonObject
 			count: 1
 			path: app/Models/User.php
 
@@ -6484,12 +4834,6 @@ parameters:
 			rawMessage: 'Method App\Models\User::verified() has parameter $query with generic class Illuminate\Database\Eloquent\Builder but does not specify its types: TModel'
 			identifier: missingType.generics
 			count: 1
-			path: app/Models/User.php
-
-		-
-			rawMessage: 'Property name for mixed must be a string, but mixed was given.'
-			identifier: property.nameNotString
-			count: 2
 			path: app/Models/User.php
 
 		-
@@ -6581,12 +4925,6 @@ parameters:
 			identifier: argument.type
 			count: 2
 			path: database/migrations/2026_08_30_185541_create_agent_conversations_table.php
-
-		-
-			rawMessage: 'Call to function method_exists() with ''Illuminate\\Support\\Str'' and ''uuid7'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: database/seeders/SystemRolesSeeder.php
 
 		-
 			rawMessage: Cannot access offset 'description' on mixed.
